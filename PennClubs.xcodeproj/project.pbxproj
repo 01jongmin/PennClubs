@@ -3,18 +3,23 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1FB735167BF19C4A9B878493 /* Pods_PennClubs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C2BBC1F28FAA27593AF324D /* Pods_PennClubs.framework */; };
+		663046BBEFA8370D706BEF89 /* Pods_PennClubsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0370DFFA04D5BD9EEE1E8469 /* Pods_PennClubsTests.framework */; };
+		C85DC88623AF97D70074D797 /* TagsCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85DC88523AF97D70074D797 /* TagsCollection.swift */; };
 		C8D0EB7423A8A5B900DAF3B1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D0EB7323A8A5B900DAF3B1 /* AppDelegate.swift */; };
 		C8D0EB7623A8A5B900DAF3B1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D0EB7523A8A5B900DAF3B1 /* SceneDelegate.swift */; };
-		C8D0EB7823A8A5B900DAF3B1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D0EB7723A8A5B900DAF3B1 /* ViewController.swift */; };
-		C8D0EB7B23A8A5B900DAF3B1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C8D0EB7923A8A5B900DAF3B1 /* Main.storyboard */; };
+		C8D0EB7823A8A5B900DAF3B1 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D0EB7723A8A5B900DAF3B1 /* HomeController.swift */; };
 		C8D0EB7D23A8A5BC00DAF3B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C8D0EB7C23A8A5BC00DAF3B1 /* Assets.xcassets */; };
-		C8D0EB8023A8A5BC00DAF3B1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C8D0EB7E23A8A5BC00DAF3B1 /* LaunchScreen.storyboard */; };
 		C8D0EB8B23A8A5BC00DAF3B1 /* PennClubsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D0EB8A23A8A5BC00DAF3B1 /* PennClubsTests.swift */; };
 		C8D0EB9623A8A5BC00DAF3B1 /* PennClubsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D0EB9523A8A5BC00DAF3B1 /* PennClubsUITests.swift */; };
+		C8D0EBA423A8A7CF00DAF3B1 /* ClubCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D0EBA323A8A7CF00DAF3B1 /* ClubCell.swift */; };
+		C8D0EBA623A8A80B00DAF3B1 /* ClubData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D0EBA523A8A80B00DAF3B1 /* ClubData.swift */; };
+		C8D0EBA823AB1C2100DAF3B1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D0EBA723AB1C2100DAF3B1 /* Constants.swift */; };
+		E21C3FE9FAE3FD71B4D05EBD /* Pods_PennClubs_PennClubsUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BFBE7800A288E6095E2AD89 /* Pods_PennClubs_PennClubsUITests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,13 +40,20 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0370DFFA04D5BD9EEE1E8469 /* Pods_PennClubsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PennClubsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1EBB69EED76D4506BB5A2C7F /* Pods-PennClubsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PennClubsTests.debug.xcconfig"; path = "Target Support Files/Pods-PennClubsTests/Pods-PennClubsTests.debug.xcconfig"; sourceTree = "<group>"; };
+		27E953B08E65DCEEBAAC0C14 /* Pods-PennClubsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PennClubsTests.release.xcconfig"; path = "Target Support Files/Pods-PennClubsTests/Pods-PennClubsTests.release.xcconfig"; sourceTree = "<group>"; };
+		45620781318C077C0CC0C7E0 /* Pods-PennClubs-PennClubsUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PennClubs-PennClubsUITests.release.xcconfig"; path = "Target Support Files/Pods-PennClubs-PennClubsUITests/Pods-PennClubs-PennClubsUITests.release.xcconfig"; sourceTree = "<group>"; };
+		77BA67557B86378DC8E40231 /* Pods-PennClubs.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PennClubs.release.xcconfig"; path = "Target Support Files/Pods-PennClubs/Pods-PennClubs.release.xcconfig"; sourceTree = "<group>"; };
+		7E0C8E66A5AF9BD21E0F80AD /* Pods-PennClubs-PennClubsUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PennClubs-PennClubsUITests.debug.xcconfig"; path = "Target Support Files/Pods-PennClubs-PennClubsUITests/Pods-PennClubs-PennClubsUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		8C2BBC1F28FAA27593AF324D /* Pods_PennClubs.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PennClubs.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9BFBE7800A288E6095E2AD89 /* Pods_PennClubs_PennClubsUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PennClubs_PennClubsUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C85DC88523AF97D70074D797 /* TagsCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagsCollection.swift; sourceTree = "<group>"; };
 		C8D0EB7023A8A5B900DAF3B1 /* PennClubs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PennClubs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8D0EB7323A8A5B900DAF3B1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C8D0EB7523A8A5B900DAF3B1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		C8D0EB7723A8A5B900DAF3B1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		C8D0EB7A23A8A5B900DAF3B1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C8D0EB7723A8A5B900DAF3B1 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		C8D0EB7C23A8A5BC00DAF3B1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		C8D0EB7F23A8A5BC00DAF3B1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C8D0EB8123A8A5BC00DAF3B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C8D0EB8623A8A5BC00DAF3B1 /* PennClubsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PennClubsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8D0EB8A23A8A5BC00DAF3B1 /* PennClubsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PennClubsTests.swift; sourceTree = "<group>"; };
@@ -49,6 +61,10 @@
 		C8D0EB9123A8A5BC00DAF3B1 /* PennClubsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PennClubsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8D0EB9523A8A5BC00DAF3B1 /* PennClubsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PennClubsUITests.swift; sourceTree = "<group>"; };
 		C8D0EB9723A8A5BC00DAF3B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C8D0EBA323A8A7CF00DAF3B1 /* ClubCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubCell.swift; sourceTree = "<group>"; };
+		C8D0EBA523A8A80B00DAF3B1 /* ClubData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubData.swift; sourceTree = "<group>"; };
+		C8D0EBA723AB1C2100DAF3B1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		CB7707544B75FC440EF93668 /* Pods-PennClubs.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PennClubs.debug.xcconfig"; path = "Target Support Files/Pods-PennClubs/Pods-PennClubs.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FB735167BF19C4A9B878493 /* Pods_PennClubs.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				663046BBEFA8370D706BEF89 /* Pods_PennClubsTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,12 +88,23 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E21C3FE9FAE3FD71B4D05EBD /* Pods_PennClubs_PennClubsUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		82DF29BDEFBD6E15A35A471D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8C2BBC1F28FAA27593AF324D /* Pods_PennClubs.framework */,
+				9BFBE7800A288E6095E2AD89 /* Pods_PennClubs_PennClubsUITests.framework */,
+				0370DFFA04D5BD9EEE1E8469 /* Pods_PennClubsTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		C8D0EB6723A8A5B900DAF3B1 = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +112,8 @@
 				C8D0EB8923A8A5BC00DAF3B1 /* PennClubsTests */,
 				C8D0EB9423A8A5BC00DAF3B1 /* PennClubsUITests */,
 				C8D0EB7123A8A5B900DAF3B1 /* Products */,
+				CF6AAE8DF9827D9D1FC3B60E /* Pods */,
+				82DF29BDEFBD6E15A35A471D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -101,11 +132,13 @@
 			children = (
 				C8D0EB7323A8A5B900DAF3B1 /* AppDelegate.swift */,
 				C8D0EB7523A8A5B900DAF3B1 /* SceneDelegate.swift */,
-				C8D0EB7723A8A5B900DAF3B1 /* ViewController.swift */,
-				C8D0EB7923A8A5B900DAF3B1 /* Main.storyboard */,
+				C8D0EB7723A8A5B900DAF3B1 /* HomeController.swift */,
 				C8D0EB7C23A8A5BC00DAF3B1 /* Assets.xcassets */,
-				C8D0EB7E23A8A5BC00DAF3B1 /* LaunchScreen.storyboard */,
 				C8D0EB8123A8A5BC00DAF3B1 /* Info.plist */,
+				C8D0EBA523A8A80B00DAF3B1 /* ClubData.swift */,
+				C85DC88523AF97D70074D797 /* TagsCollection.swift */,
+				C8D0EBA323A8A7CF00DAF3B1 /* ClubCell.swift */,
+				C8D0EBA723AB1C2100DAF3B1 /* Constants.swift */,
 			);
 			path = PennClubs;
 			sourceTree = "<group>";
@@ -128,6 +161,19 @@
 			path = PennClubsUITests;
 			sourceTree = "<group>";
 		};
+		CF6AAE8DF9827D9D1FC3B60E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				CB7707544B75FC440EF93668 /* Pods-PennClubs.debug.xcconfig */,
+				77BA67557B86378DC8E40231 /* Pods-PennClubs.release.xcconfig */,
+				7E0C8E66A5AF9BD21E0F80AD /* Pods-PennClubs-PennClubsUITests.debug.xcconfig */,
+				45620781318C077C0CC0C7E0 /* Pods-PennClubs-PennClubsUITests.release.xcconfig */,
+				1EBB69EED76D4506BB5A2C7F /* Pods-PennClubsTests.debug.xcconfig */,
+				27E953B08E65DCEEBAAC0C14 /* Pods-PennClubsTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -135,9 +181,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C8D0EB9A23A8A5BC00DAF3B1 /* Build configuration list for PBXNativeTarget "PennClubs" */;
 			buildPhases = (
+				FC5D3D1E4AD33F1D8623705E /* [CP] Check Pods Manifest.lock */,
 				C8D0EB6C23A8A5B900DAF3B1 /* Sources */,
 				C8D0EB6D23A8A5B900DAF3B1 /* Frameworks */,
 				C8D0EB6E23A8A5B900DAF3B1 /* Resources */,
+				EDB6C95428D851C60F47B89F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -152,6 +200,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C8D0EB9D23A8A5BC00DAF3B1 /* Build configuration list for PBXNativeTarget "PennClubsTests" */;
 			buildPhases = (
+				F2201BA93BD305296FB9F421 /* [CP] Check Pods Manifest.lock */,
 				C8D0EB8223A8A5BC00DAF3B1 /* Sources */,
 				C8D0EB8323A8A5BC00DAF3B1 /* Frameworks */,
 				C8D0EB8423A8A5BC00DAF3B1 /* Resources */,
@@ -170,9 +219,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C8D0EBA023A8A5BC00DAF3B1 /* Build configuration list for PBXNativeTarget "PennClubsUITests" */;
 			buildPhases = (
+				C5EE836C73B5340E169D1AFB /* [CP] Check Pods Manifest.lock */,
 				C8D0EB8D23A8A5BC00DAF3B1 /* Sources */,
 				C8D0EB8E23A8A5BC00DAF3B1 /* Frameworks */,
 				C8D0EB8F23A8A5BC00DAF3B1 /* Resources */,
+				BEE351EDB2EAF16A17572665 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -232,9 +283,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C8D0EB8023A8A5BC00DAF3B1 /* LaunchScreen.storyboard in Resources */,
 				C8D0EB7D23A8A5BC00DAF3B1 /* Assets.xcassets in Resources */,
-				C8D0EB7B23A8A5B900DAF3B1 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -254,14 +303,121 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		BEE351EDB2EAF16A17572665 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PennClubs-PennClubsUITests/Pods-PennClubs-PennClubsUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PennClubs-PennClubsUITests/Pods-PennClubs-PennClubsUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PennClubs-PennClubsUITests/Pods-PennClubs-PennClubsUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C5EE836C73B5340E169D1AFB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PennClubs-PennClubsUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EDB6C95428D851C60F47B89F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PennClubs/Pods-PennClubs-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PennClubs/Pods-PennClubs-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PennClubs/Pods-PennClubs-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F2201BA93BD305296FB9F421 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PennClubsTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FC5D3D1E4AD33F1D8623705E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PennClubs-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		C8D0EB6C23A8A5B900DAF3B1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C8D0EB7823A8A5B900DAF3B1 /* ViewController.swift in Sources */,
+				C8D0EB7823A8A5B900DAF3B1 /* HomeController.swift in Sources */,
+				C8D0EBA823AB1C2100DAF3B1 /* Constants.swift in Sources */,
 				C8D0EB7423A8A5B900DAF3B1 /* AppDelegate.swift in Sources */,
+				C8D0EBA623A8A80B00DAF3B1 /* ClubData.swift in Sources */,
 				C8D0EB7623A8A5B900DAF3B1 /* SceneDelegate.swift in Sources */,
+				C8D0EBA423A8A7CF00DAF3B1 /* ClubCell.swift in Sources */,
+				C85DC88623AF97D70074D797 /* TagsCollection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,25 +451,6 @@
 			targetProxy = C8D0EB9223A8A5BC00DAF3B1 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		C8D0EB7923A8A5B900DAF3B1 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C8D0EB7A23A8A5B900DAF3B1 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		C8D0EB7E23A8A5BC00DAF3B1 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C8D0EB7F23A8A5BC00DAF3B1 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		C8D0EB9823A8A5BC00DAF3B1 /* Debug */ = {
@@ -432,11 +569,13 @@
 		};
 		C8D0EB9B23A8A5BC00DAF3B1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CB7707544B75FC440EF93668 /* Pods-PennClubs.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = TNG4H85GH4;
 				INFOPLIST_FILE = PennClubs/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -450,11 +589,13 @@
 		};
 		C8D0EB9C23A8A5BC00DAF3B1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 77BA67557B86378DC8E40231 /* Pods-PennClubs.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = TNG4H85GH4;
 				INFOPLIST_FILE = PennClubs/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -468,6 +609,7 @@
 		};
 		C8D0EB9E23A8A5BC00DAF3B1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1EBB69EED76D4506BB5A2C7F /* Pods-PennClubsTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -490,6 +632,7 @@
 		};
 		C8D0EB9F23A8A5BC00DAF3B1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 27E953B08E65DCEEBAAC0C14 /* Pods-PennClubsTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -512,6 +655,7 @@
 		};
 		C8D0EBA123A8A5BC00DAF3B1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7E0C8E66A5AF9BD21E0F80AD /* Pods-PennClubs-PennClubsUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -532,6 +676,7 @@
 		};
 		C8D0EBA223A8A5BC00DAF3B1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 45620781318C077C0CC0C7E0 /* Pods-PennClubs-PennClubsUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
