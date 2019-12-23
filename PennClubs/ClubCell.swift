@@ -18,12 +18,14 @@ class ClubCell : UICollectionViewCell, UICollectionViewDataSource, UICollectionV
     private var imageWrapper = UIView()
     private var descriptionWrapper = UIView()
     let iconBar = UIStackView()
+    let descriptionLabel = UILabel()
     
     private var sizeLabel = UILabel()
     private var applicationRequiredLabel = UILabel()
     private var acceptingMembersLabel = UILabel()
     private var acceptingMembersIcon = UIImageView()
-    private var bookMark = UIImageView()
+    private var bookmarkButton = UIButton()
+    private var bookmarkButtonSelected = false
     
     override init (frame: CGRect){
         super.init(frame: frame)
@@ -31,6 +33,7 @@ class ClubCell : UICollectionViewCell, UICollectionViewDataSource, UICollectionV
         tagsCollection.register(TagCell.self, forCellWithReuseIdentifier: "tagCellID")
         addSubview(containerView)
         configureContainerView()
+        self.layoutIfNeeded()
         configureImageWrapper()
         configureDescriptionWrapper()
         configureIconBar()
@@ -41,7 +44,8 @@ class ClubCell : UICollectionViewCell, UICollectionViewDataSource, UICollectionV
         self.tagsCollection.reloadData()
         
         configureFadeMask()
-        configureDescriptionTextView()
+        configureDescriptionLabel()
+        configureBookmarkIcon()
     }
     
     func typeToApplicationRequiredDescription(type : Int) -> String {
@@ -84,7 +88,7 @@ class ClubCell : UICollectionViewCell, UICollectionViewDataSource, UICollectionV
         if let image_url = club.image_url {
             clubImageView.sd_setImage(with: URL(string: image_url), placeholderImage: UIImage(named: "placeholder.png"))
         } else {
-            clubImageView.image = UIImage(named: "CIS120")!
+            clubImageView.image = UIImage(named: "Placeholder")!
         }
         
         clubNameLabel.text = club.name
@@ -119,6 +123,7 @@ class ClubCell : UICollectionViewCell, UICollectionViewDataSource, UICollectionV
         
         tagArray = club.tags
         
+        descriptionLabel.text = club.description
     
         self.tagsCollection.reloadData()
     }
@@ -162,10 +167,11 @@ class ClubCell : UICollectionViewCell, UICollectionViewDataSource, UICollectionV
         imageWrapper.translatesAutoresizingMaskIntoConstraints = false
         
         imageWrapper.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 4/10).isActive = true
-        imageWrapper.heightAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: 8/10).isActive = true
+        imageWrapper.heightAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: 6/10).isActive = true
         imageWrapper.clipsToBounds = true
         imageWrapper.trailingAnchor.constraint(equalTo: containerView.trailingAnchor).isActive = true
-    
+//        imageWrapper.bottomAnchor.constraint().isActive = true
+        imageWrapper.topAnchor.constraint(equalTo: containerView.topAnchor, constant: containerView.bounds.height * 0.20).isActive = true
         
         imageWrapper.addSubview(clubImageView)
         clubImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -190,6 +196,8 @@ class ClubCell : UICollectionViewCell, UICollectionViewDataSource, UICollectionV
         
         clubNameLabel.adjustsFontSizeToFitWidth = true
     }
+    
+    let lineBar = UIView()
     
     func configureIconBar() {
         
@@ -237,7 +245,6 @@ class ClubCell : UICollectionViewCell, UICollectionViewDataSource, UICollectionV
         iconBar.widthAnchor.constraint(equalTo: descriptionWrapper.widthAnchor, multiplier: 0.9).isActive = true
         iconBar.bottomAnchor.constraint(equalTo: descriptionWrapper.bottomAnchor).isActive = true
         
-        let lineBar = UIView()
         containerView.addSubview(lineBar)
         lineBar.translatesAutoresizingMaskIntoConstraints = false
         lineBar.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.90).isActive = true
@@ -305,7 +312,6 @@ class ClubCell : UICollectionViewCell, UICollectionViewDataSource, UICollectionV
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(tagArray.count)
         return tagArray.count
     }
     
@@ -328,7 +334,44 @@ class ClubCell : UICollectionViewCell, UICollectionViewDataSource, UICollectionV
         return 10
     }
     
-    func configureDescriptionTextView() {
+    func configureDescriptionLabel() {
+        containerView.addSubview(descriptionLabel)
+        
+        descriptionLabel.font = UIFont(name: "HelveticaNeue", size: 13)
+        descriptionLabel.textColor = .darkGray
+        
+        descriptionLabel.numberOfLines = 5
+        descriptionLabel.allowsDefaultTighteningForTruncation = true
+        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        descriptionLabel.topAnchor.constraint(equalTo: tagsCollection.bottomAnchor).isActive = true
+        descriptionLabel.leftAnchor.constraint(equalTo: clubNameLabel.leftAnchor).isActive = true
+        descriptionLabel.rightAnchor.constraint(equalTo: imageWrapper.leftAnchor).isActive = true
+        descriptionLabel.bottomAnchor.constraint(equalTo: lineBar.topAnchor).isActive = true
+    }
+    
+    func configureBookmarkIcon() {
+        bookmarkButton.setImage(UIImage(systemName: "bookmark"), for: .normal)
+        containerView.addSubview(bookmarkButton)
+        
+        bookmarkButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        bookmarkButton.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -containerView.bounds.width * 0.05).isActive = true
+        bookmarkButton.topAnchor.constraint(equalTo: containerView.topAnchor, constant: containerView.bounds.height * 0.05).isActive = true
+        
+        bookmarkButton.addTarget(self, action: #selector(doSomething), for: UIControl.Event.touchUpInside)
+        
+    }
+    
+    
+    @objc func doSomething(){
+        if bookmarkButtonSelected {
+            bookmarkButton.setImage(UIImage(systemName: "bookmark"), for: .normal)
+            bookmarkButtonSelected = false
+        } else {
+            bookmarkButton.setImage(UIImage(systemName: "bookmark.fill"), for: .normal)
+            bookmarkButtonSelected = true
+        }
         
     }
     

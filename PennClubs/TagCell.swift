@@ -18,14 +18,11 @@ class TagCell: UICollectionViewCell {
         self.addSubview(tagLabel)
         
         super.layoutIfNeeded()
-//        self.layoutSubviews()
         
         tagLabel.translatesAutoresizingMaskIntoConstraints = false
         tagLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         tagLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
     
-        
-//        self.backgroundColor = .red
     }
     
     required init?(coder: NSCoder) {
