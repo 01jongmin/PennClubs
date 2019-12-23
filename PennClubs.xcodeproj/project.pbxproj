@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		1FB735167BF19C4A9B878493 /* Pods_PennClubs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C2BBC1F28FAA27593AF324D /* Pods_PennClubs.framework */; };
 		663046BBEFA8370D706BEF89 /* Pods_PennClubsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0370DFFA04D5BD9EEE1E8469 /* Pods_PennClubsTests.framework */; };
-		C85DC88623AF97D70074D797 /* TagsCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85DC88523AF97D70074D797 /* TagsCollection.swift */; };
+		C85DC88623AF97D70074D797 /* TagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85DC88523AF97D70074D797 /* TagCell.swift */; };
 		C8D0EB7423A8A5B900DAF3B1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D0EB7323A8A5B900DAF3B1 /* AppDelegate.swift */; };
 		C8D0EB7623A8A5B900DAF3B1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D0EB7523A8A5B900DAF3B1 /* SceneDelegate.swift */; };
 		C8D0EB7823A8A5B900DAF3B1 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D0EB7723A8A5B900DAF3B1 /* HomeController.swift */; };
@@ -48,7 +48,7 @@
 		7E0C8E66A5AF9BD21E0F80AD /* Pods-PennClubs-PennClubsUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PennClubs-PennClubsUITests.debug.xcconfig"; path = "Target Support Files/Pods-PennClubs-PennClubsUITests/Pods-PennClubs-PennClubsUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		8C2BBC1F28FAA27593AF324D /* Pods_PennClubs.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PennClubs.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BFBE7800A288E6095E2AD89 /* Pods_PennClubs_PennClubsUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PennClubs_PennClubsUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C85DC88523AF97D70074D797 /* TagsCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagsCollection.swift; sourceTree = "<group>"; };
+		C85DC88523AF97D70074D797 /* TagCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagCell.swift; sourceTree = "<group>"; };
 		C8D0EB7023A8A5B900DAF3B1 /* PennClubs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PennClubs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8D0EB7323A8A5B900DAF3B1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C8D0EB7523A8A5B900DAF3B1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -136,7 +136,7 @@
 				C8D0EB7C23A8A5BC00DAF3B1 /* Assets.xcassets */,
 				C8D0EB8123A8A5BC00DAF3B1 /* Info.plist */,
 				C8D0EBA523A8A80B00DAF3B1 /* ClubData.swift */,
-				C85DC88523AF97D70074D797 /* TagsCollection.swift */,
+				C85DC88523AF97D70074D797 /* TagCell.swift */,
 				C8D0EBA323A8A7CF00DAF3B1 /* ClubCell.swift */,
 				C8D0EBA723AB1C2100DAF3B1 /* Constants.swift */,
 			);
@@ -417,7 +417,7 @@
 				C8D0EBA623A8A80B00DAF3B1 /* ClubData.swift in Sources */,
 				C8D0EB7623A8A5B900DAF3B1 /* SceneDelegate.swift in Sources */,
 				C8D0EBA423A8A7CF00DAF3B1 /* ClubCell.swift in Sources */,
-				C85DC88623AF97D70074D797 /* TagsCollection.swift in Sources */,
+				C85DC88623AF97D70074D797 /* TagCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

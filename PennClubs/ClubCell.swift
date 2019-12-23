@@ -28,7 +28,7 @@ class ClubCell : UICollectionViewCell, UICollectionViewDataSource, UICollectionV
     override init (frame: CGRect){
         super.init(frame: frame)
         backgroundColor = .clear
-        tagsCollection.register(tagCell.self, forCellWithReuseIdentifier: "cellID2")
+        tagsCollection.register(TagCell.self, forCellWithReuseIdentifier: "tagCellID")
         addSubview(containerView)
         configureContainerView()
         configureImageWrapper()
@@ -37,14 +37,11 @@ class ClubCell : UICollectionViewCell, UICollectionViewDataSource, UICollectionV
         configureClubNameLabel()
         configureTagCellCollection()
         
-        
         self.layoutIfNeeded()
-        
-//        DispatchQueue.main.async {
-            self.tagsCollection.reloadData()
-//        }
+        self.tagsCollection.reloadData()
         
         configureFadeMask()
+        configureDescriptionTextView()
     }
     
     func typeToApplicationRequiredDescription(type : Int) -> String {
@@ -301,7 +298,7 @@ class ClubCell : UICollectionViewCell, UICollectionViewDataSource, UICollectionV
         fadeMask.frame = CGRect(x: tagsCollection.frame.origin.x, y: tagsCollection.frame.origin.y, width: tagsCollection.frame.width, height: tagsCollection.frame.height)
         fadeMask.colors = [UIColor(white: 1, alpha: 1).cgColor, UIColor(white: 1, alpha: 0).cgColor, UIColor(white: 1, alpha: 0).cgColor, UIColor(white: 1, alpha: 1).cgColor]
         
-        fadeMask.locations = [0.03, 0.08, 0.9, 1]
+        fadeMask.locations = [0.03, 0.10, 0.9, 1]
         
         fadeMask.startPoint = CGPoint(x: 0.0, y: 0.5)
         fadeMask.endPoint = CGPoint(x: 1.0, y: 0.5)
@@ -313,42 +310,28 @@ class ClubCell : UICollectionViewCell, UICollectionViewDataSource, UICollectionV
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellID2", for: indexPath) as! tagCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "tagCellID", for: indexPath) as! TagCell
         cell.set(tags: tagArray[indexPath.item])
-//        DispatchQueue.main.async {
-//            self.tagsCollection.reloadData()
-//        }
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        CGSize.init(width: 90, height: tagsCollection.frame.height * 0.90)
+        
+        let tagLabel = UILabel()
+        tagLabel.text = tagArray[indexPath.item].name
+        tagLabel.font = UIFont(name: "HelveticaNeue-Bold" , size: 12)
+        
+        return CGSize.init(width: max(tagLabel.intrinsicContentSize.width * 1.2, 60), height: tagsCollection.frame.height * 0.80)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 10
     }
     
+    func configureDescriptionTextView() {
+        
+    }
+    
 }
 
-class tagCell: UICollectionViewCell {
-    
-    override init (frame: CGRect){
-        super.init(frame: frame)
-        backgroundColor = .black
-    }
-    
-    let tagLabel = UILabel()
-    let cell = UIView()
-    
-    func set(tags: Tag) {
-        tagLabel.text = tags.name
-        tagLabel.textColor = .white
-        addSubview(tagLabel)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-}
+
