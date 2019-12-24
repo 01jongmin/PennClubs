@@ -8,13 +8,16 @@
 
 import UIKit
 
-class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UISearchBarDelegate, UISearchControllerDelegate {
+class DiscoverController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UISearchBarDelegate, UISearchControllerDelegate {
 
     
     var clubs = [ClubData]()
     var filteredClubs = [ClubData]()
     
+    var bookmarkedClubCodeArray = Set<String>()
+    
     var isSearching = false
+    var isFiltering = false
 
     func getClubData() {
         let jsonUrlString = "https://api.pennclubs.com/clubs/"
@@ -37,19 +40,39 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
     
     let searchController = UISearchController(searchResultsController: nil)
+    var filterImage = UIImage(systemName: "line.horizontal.3.decrease.circle")!
+    var filterImageClicked = UIImage(systemName: "line.horizontal.3.decrease.circle.fill")!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Home"
+        
         collectionView.backgroundColor = UIColor.white
+        searchController.searchBar.showsBookmarkButton = true
+        searchController.searchBar.setImage(filterImage, for: .bookmark, state: .normal)
         navigationItem.searchController = searchController
         
         searchController.delegate = self
         searchController.searchBar.delegate = self
         searchController.searchBar.returnKeyType = .done
         searchController.obscuresBackgroundDuringPresentation = false;
+        
         getClubData()
         collectionView?.register(ClubCell.self, forCellWithReuseIdentifier: "cellID")
+        view.layoutIfNeeded()
+        configureFade()
+    }
+    
+    func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
+        
+        if (isFiltering) {
+            searchController.searchBar.setImage(filterImage, for: .bookmark, state: .normal)
+            isFiltering = false
+        } else {
+            searchController.searchBar.setImage(filterImageClicked, for: .bookmark, state: .normal)
+            isFiltering = true
+        }
+        
+        print("clicked")
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -75,6 +98,15 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         cell.set(club: club)
         
         return cell
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchController.searchBar.showsBookmarkButton = false
+        isFiltering = false
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchController.searchBar.showsBookmarkButton = true
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -114,8 +146,19 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         }
     }
     
+    func configureFade() {
+        let fadeMask = CAGradientLayer()
+        view.layer.addSublayer(fadeMask)
+        fadeMask.frame = CGRect(x: 0, y: searchController.searchBar.frame.height, width: self.collectionView.frame.width, height: self.collectionView.frame.height - (self.tabBarController?.tabBar.frame.height ?? 0))
+       fadeMask.colors = [UIColor(white: 1, alpha: 1).cgColor, UIColor(white: 1, alpha: 0).cgColor, UIColor(white: 1, alpha: 0).cgColor, UIColor(white: 1, alpha: 1).cgColor]
+       
+        fadeMask.locations = [0.05, 0.10, 0.85, 0.93]
+    }
     
-//    lazy let tagCollection = TagCollection(collectionViewLayout: layout)
+    func bookmarkClubWithCode(code: String) {
+        bookmarkedClubCodeArray.insert(code)
+        print(bookmarkedClubCodeArray)
+    }
 
 }
 

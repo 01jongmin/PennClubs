@@ -22,10 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
         
-        let layout = UICollectionViewFlowLayout ()
-        let nav = UINavigationController(rootViewController: HomeController(collectionViewLayout: layout))
-        
-        window?.rootViewController = nav
+        window?.rootViewController = MainController()
         window?.makeKeyAndVisible()
     }
 

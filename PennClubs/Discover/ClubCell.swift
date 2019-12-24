@@ -19,6 +19,7 @@ class ClubCell : UICollectionViewCell, UICollectionViewDataSource, UICollectionV
     private var descriptionWrapper = UIView()
     let iconBar = UIStackView()
     let descriptionLabel = UILabel()
+    var clubCode = ""
     
     private var sizeLabel = UILabel()
     private var applicationRequiredLabel = UILabel()
@@ -125,6 +126,8 @@ class ClubCell : UICollectionViewCell, UICollectionViewDataSource, UICollectionV
         
         descriptionLabel.text = club.description
     
+        clubCode = club.code
+        
         self.tagsCollection.reloadData()
     }
     
@@ -359,12 +362,12 @@ class ClubCell : UICollectionViewCell, UICollectionViewDataSource, UICollectionV
         bookmarkButton.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -containerView.bounds.width * 0.05).isActive = true
         bookmarkButton.topAnchor.constraint(equalTo: containerView.topAnchor, constant: containerView.bounds.height * 0.05).isActive = true
         
-        bookmarkButton.addTarget(self, action: #selector(doSomething), for: UIControl.Event.touchUpInside)
+        bookmarkButton.addTarget(self, action: #selector(bookmarkClub), for: UIControl.Event.touchUpInside)
         
     }
     
     
-    @objc func doSomething(){
+    @objc func bookmarkClub(){
         if bookmarkButtonSelected {
             bookmarkButton.setImage(UIImage(systemName: "bookmark"), for: .normal)
             bookmarkButtonSelected = false
