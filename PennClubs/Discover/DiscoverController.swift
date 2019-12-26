@@ -26,10 +26,11 @@ class DiscoverController: UICollectionViewController, UICollectionViewDelegateFl
 
         URLSession.shared.dataTask(with: url!) { (data, response, err) in
             do {
-                guard let data = data else {return }
+                guard let data = data else { return }
                 let clubsDecoded = try JSONDecoder().decode([ClubData].self, from: data)
                 self.clubs = clubsDecoded
                 DispatchQueue.main.async {
+                    self.clubs.shuffle()
                     self.collectionView.reloadData()
                 }
             } catch let jsonErr {
@@ -42,6 +43,7 @@ class DiscoverController: UICollectionViewController, UICollectionViewDelegateFl
     let searchController = UISearchController(searchResultsController: nil)
     var filterImage = UIImage(systemName: "line.horizontal.3.decrease.circle")!
     var filterImageClicked = UIImage(systemName: "line.horizontal.3.decrease.circle.fill")!
+    let discoverModeSwitch = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,13 +55,47 @@ class DiscoverController: UICollectionViewController, UICollectionViewDelegateFl
         
         searchController.delegate = self
         searchController.searchBar.delegate = self
+        
+        searchController.searchBar.searchTextField.translatesAutoresizingMaskIntoConstraints = false
+        searchController.searchBar.searchTextField.widthAnchor.constraint(equalToConstant: searchController.searchBar.bounds.width * 0.70).isActive = true
+        searchController.searchBar.searchTextField.leftAnchor.constraint(equalTo: searchController.searchBar.leftAnchor, constant: searchController.searchBar.bounds.width * 0.05 ).isActive = true
+        searchController.searchBar.searchTextField.centerYAnchor.constraint(equalTo: searchController.searchBar.centerYAnchor).isActive = true
+        
+        discoverModeSwitch.layer.cornerRadius = 10
+        discoverModeSwitch.backgroundColor = UIColor(red:0.38, green:0.72, blue:0.95, alpha:1.0)
+//        discoverModeSwitch.clipsToBounds = true
+//        discoverModeSwitch.setTitle("To Clubs", for: .normal)
+        
+       let switchImage = UIImage(systemName: "arrow.2.circlepath.circle")
+                
+        searchController.searchBar.addSubview(discoverModeSwitch)
+        discoverModeSwitch.setImage(switchImage, for: .normal)
+        discoverModeSwitch.tintColor = .white
+        discoverModeSwitch.setTitle(" Events", for: .normal)
+        discoverModeSwitch.titleLabel?.font = UIFont(name: "Avenir-Black", size: UIFont.systemFontSize)
+        
+        
+        discoverModeSwitch.translatesAutoresizingMaskIntoConstraints = false
+
+        discoverModeSwitch.leftAnchor.constraint(equalToSystemSpacingAfter: searchController.searchBar.searchTextField.rightAnchor, multiplier: 1.0).isActive = true
+        discoverModeSwitch.rightAnchor.constraint(equalTo: searchController.searchBar.rightAnchor, constant: -searchController.searchBar.bounds.width * 0.05).isActive = true
+        discoverModeSwitch.heightAnchor.constraint(equalTo: searchController.searchBar.searchTextField.heightAnchor).isActive = true
+        discoverModeSwitch.centerYAnchor.constraint(equalTo: searchController.searchBar.searchTextField.centerYAnchor).isActive = true
+        
         searchController.searchBar.returnKeyType = .done
-        searchController.obscuresBackgroundDuringPresentation = false;
+        searchController.obscuresBackgroundDuringPresentation = false
         
         getClubData()
         collectionView?.register(ClubCell.self, forCellWithReuseIdentifier: "cellID")
         view.layoutIfNeeded()
         configureFade()
+    
+        discoverModeSwitch.layoutIfNeeded()
+        discoverModeSwitch.layer.shadowOffset = .zero
+        discoverModeSwitch.layer.shadowColor = UIColor(red:0.15, green:0.40, blue:0.57, alpha:1.0).cgColor
+        discoverModeSwitch.layer.shadowRadius = 4
+        discoverModeSwitch.layer.shadowOpacity = 0.5
+        discoverModeSwitch.layer.shadowPath = UIBezierPath(rect: discoverModeSwitch.bounds).cgPath
     }
     
     func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
@@ -92,9 +128,9 @@ class DiscoverController: UICollectionViewController, UICollectionViewDelegateFl
         } else {
             club = clubs[indexPath.item]
         }
-     
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellID", for: indexPath) as! ClubCell
         
+    
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellID", for: indexPath) as! ClubCell
         cell.set(club: club)
         
         return cell
@@ -103,12 +139,22 @@ class DiscoverController: UICollectionViewController, UICollectionViewDelegateFl
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchController.searchBar.showsBookmarkButton = false
         isFiltering = false
+        discoverModeSwitch.isHidden = true
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchController.searchBar.showsBookmarkButton = true
+        discoverModeSwitch.isHidden = false
     }
     
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        isFiltering = false
+        isSearching = false
+        view.endEditing(true)
+        clubs.shuffle()
+        self.collectionView.reloadData()
+    }
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchController.searchBar.text == nil || searchController.searchBar.text == "" {
             isSearching = false
@@ -125,12 +171,23 @@ class DiscoverController: UICollectionViewController, UICollectionViewDelegateFl
         }
     }
     
+
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         CGSize.init(width: view.frame.width, height: 200)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
+    }
+    
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        coordinator.animate(alongsideTransition: nil, completion: { _ in
+            // called right after rotation transition ends
+            self.view.setNeedsLayout()
+        })
     }
     
     public override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {

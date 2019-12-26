@@ -82,3 +82,8 @@ struct Tag: Decodable {
     var name: String
 }
 
+enum discoverMode {
+    case Clubs
+    case Events
+}
+

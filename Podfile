@@ -6,6 +6,7 @@ target 'PennClubs' do
   use_frameworks!
   
   pod 'SDWebImage', '~> 5.0'
+  pod 'Kingfisher', '~> 4.0'
 
   # Pods for PennClubs
 

@@ -17,7 +17,7 @@ class MainController: UITabBarController {
         configureViewControllers()
         
         self.navigationController?.isNavigationBarHidden = false
-        selectedIndex = 1
+        selectedIndex = 2
     }
     
     func configureViewControllers() {
@@ -43,4 +43,5 @@ class MainController: UITabBarController {
         
         viewControllers = [manage, upcoming, discover]
     }
+    
 }
