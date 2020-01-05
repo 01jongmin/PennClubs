@@ -9,7 +9,6 @@
 import UIKit
 
 class DiscoverController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UISearchBarDelegate, UISearchControllerDelegate {
-
     
     var clubs = [ClubData]()
     var filteredClubs = [ClubData]()

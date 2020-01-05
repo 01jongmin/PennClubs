@@ -8,7 +8,6 @@
 
 import Foundation
 import UIKit
-import SDWebImage
 import Kingfisher
 
 class ClubCell : UICollectionViewCell, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
