@@ -9,14 +9,19 @@
 import Foundation
 import UIKit
 import SDWebImage
+import Kingfisher
 
 class ClubCell : UICollectionViewCell, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-//    Commit error
 
+    var clubImage: ImageResource? = nil
     private var clubImageView = UIImageView()
     private var clubNameLabel = UILabel()
+    private var nullImage = false
     
-    private var imageWrapper = UIView()
+    private var noClub = NSLayoutConstraint()
+    private var yesClub = NSLayoutConstraint()
+    
+    private var imageWrapper = UIImageView()
     private var descriptionWrapper = UIView()
     let iconBar = UIStackView()
     let descriptionLabel = UILabel()
@@ -29,15 +34,25 @@ class ClubCell : UICollectionViewCell, UICollectionViewDataSource, UICollectionV
     private var bookmarkButton = UIButton()
     private var bookmarkButtonSelected = false
     
-    override init (frame: CGRect) {
+    override init (frame: CGRect){
         super.init(frame: frame)
         backgroundColor = .clear
         tagsCollection.register(TagCell.self, forCellWithReuseIdentifier: "tagCellID")
         addSubview(containerView)
         configureContainerView()
         self.layoutIfNeeded()
+        
+        noClub = imageWrapper.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.05)
+        yesClub = imageWrapper.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.40)
+        
         configureImageWrapper()
+//        imageWrapper.backgroundColor = .blue
+//        descriptionLabel.backgroundColor = .green
+//        clubNameLabel.backgroundColor = .brown
+        
         configureDescriptionWrapper()
+//        descriptionWrapper.backgroundColor = .red
+        
         configureIconBar()
         configureClubNameLabel()
         configureTagCellCollection()
@@ -48,6 +63,9 @@ class ClubCell : UICollectionViewCell, UICollectionViewDataSource, UICollectionV
         configureFadeMask()
         configureDescriptionLabel()
         configureBookmarkIcon()
+        
+        
+        
     }
     
     func typeToApplicationRequiredDescription(type : Int) -> String {
@@ -86,12 +104,42 @@ class ClubCell : UICollectionViewCell, UICollectionViewDataSource, UICollectionV
     var tagArray = [Tag]()
     
     func set(club: ClubData) {
-        
-        if let image_url = club.image_url {
-            clubImageView.sd_setImage(with: URL(string: image_url), placeholderImage: UIImage(named: "placeholder.png"))
+        if let imageUrlString = club.image_url {
+            clubImage = ImageResource(downloadURL: URL(string: imageUrlString)!, cacheKey: imageUrlString)
+            clubImageView.removeFromSuperview()
+            clubImageView = UIImageView()
+            imageWrapper.addSubview(clubImageView)
+            clubImageView.kf.setImage(with: clubImage)
+            
+//            print(imageWrapper.frame.width)
+//            imageWrapper.backgroundColor = .red
+            
+            if (noClub.isActive){
+                noClub.isActive = false
+            }
+            yesClub.isActive = true
+            
+            clubImageView.contentMode = UIView.ContentMode.scaleAspectFit
+            clubImageView.translatesAutoresizingMaskIntoConstraints = false
+            clubImageView.updateConstraints()
+            clubImageView.heightAnchor.constraint(equalTo: imageWrapper.heightAnchor, multiplier: 8/10).isActive = true
+            clubImageView.leadingAnchor.constraint(equalTo: imageWrapper.leadingAnchor, constant: 10).isActive = true
+            clubImageView.trailingAnchor.constraint(equalTo: imageWrapper.trailingAnchor, constant: -10).isActive = true
+            clubImageView.centerYAnchor.constraint(equalTo: imageWrapper.centerYAnchor).isActive = true
+//            clubImageView.layoutIfNeeded()
+            
         } else {
-            clubImageView.image = UIImage(named: "Placeholder")!
+            clubImageView.removeFromSuperview()
+//            clubImageView.image = nil
+//            imageWrapper.backgroundColor = .blue
+//            imageWrapper.image = nil
+            if (yesClub.isActive) {
+                yesClub.isActive = false
+            }
+            noClub.isActive = true
         }
+        
+        
         
         clubNameLabel.text = club.name
         
@@ -125,11 +173,35 @@ class ClubCell : UICollectionViewCell, UICollectionViewDataSource, UICollectionV
         
         tagArray = club.tags
         
-        descriptionLabel.text = club.description
-    
+        if (club.subtitle == "") {
+            if (club.description == "") {
+                descriptionLabel.text = "This club does not have any description"
+            } else {
+                descriptionLabel.text = club.description
+            }
+        } else {
+            descriptionLabel.text = club.subtitle
+        }
+        
         clubCode = club.code
         
         self.tagsCollection.reloadData()
+        
+//        addSubview(containerView)
+//        configureContainerView()
+//        self.layoutIfNeeded()
+//        configureImageWrapper()
+//        configureDescriptionWrapper()
+//        configureIconBar()
+//        configureClubNameLabel()
+//        configureTagCellCollection()
+//
+//        self.layoutIfNeeded()
+//        self.tagsCollection.reloadData()
+//
+//        configureFadeMask()
+//        configureDescriptionLabel()
+//        configureBookmarkIcon()
     }
     
     required init?(coder: NSCoder) {
@@ -170,24 +242,15 @@ class ClubCell : UICollectionViewCell, UICollectionViewDataSource, UICollectionV
         containerView.addSubview(imageWrapper)
         imageWrapper.translatesAutoresizingMaskIntoConstraints = false
         
-        imageWrapper.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 4/10).isActive = true
         imageWrapper.heightAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: 6/10).isActive = true
         imageWrapper.clipsToBounds = true
         imageWrapper.trailingAnchor.constraint(equalTo: containerView.trailingAnchor).isActive = true
-//        imageWrapper.bottomAnchor.constraint().isActive = true
         imageWrapper.topAnchor.constraint(equalTo: containerView.topAnchor, constant: containerView.bounds.height * 0.20).isActive = true
-        
+        noClub.isActive = true
+            
         imageWrapper.addSubview(clubImageView)
-        clubImageView.translatesAutoresizingMaskIntoConstraints = false
-        clubImageView.contentMode = UIView.ContentMode.scaleAspectFit
- 
-        clubImageView.heightAnchor.constraint(equalTo: imageWrapper.heightAnchor, multiplier: 8/10).isActive = true
         
-        clubImageView.leadingAnchor.constraint(equalTo: imageWrapper.leadingAnchor, constant: 10).isActive = true
-        clubImageView.trailingAnchor.constraint(equalTo: imageWrapper.trailingAnchor, constant: -10).isActive = true
-        clubImageView.centerYAnchor.constraint(equalTo: imageWrapper.centerYAnchor).isActive = true
         
-        clubImageView.layoutIfNeeded()
     }
     
     func configureDescriptionWrapper() {
@@ -266,7 +329,7 @@ class ClubCell : UICollectionViewCell, UICollectionViewDataSource, UICollectionV
         
         self.layoutIfNeeded()
         clubNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        clubNameLabel.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.5).isActive = true
+        clubNameLabel.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.8).isActive = true
         clubNameLabel.heightAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: 0.2).isActive = true
         clubNameLabel.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: containerView.bounds.width * 0.05).isActive = true
         clubNameLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: containerView.bounds.height * 0.05).isActive = true
