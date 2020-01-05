@@ -11,6 +11,7 @@ import UIKit
 import SDWebImage
 
 class ClubCell : UICollectionViewCell, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+//    Commit error
 
     private var clubImageView = UIImageView()
     private var clubNameLabel = UILabel()
@@ -28,7 +29,7 @@ class ClubCell : UICollectionViewCell, UICollectionViewDataSource, UICollectionV
     private var bookmarkButton = UIButton()
     private var bookmarkButtonSelected = false
     
-    override init (frame: CGRect){
+    override init (frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .clear
         tagsCollection.register(TagCell.self, forCellWithReuseIdentifier: "tagCellID")
