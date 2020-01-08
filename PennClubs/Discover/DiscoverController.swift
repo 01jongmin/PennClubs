@@ -17,24 +17,37 @@ class DiscoverController: UICollectionViewController, UICollectionViewDelegateFl
     
     var isSearching = false
     var isFiltering = false
-
+    
+    private let refreshControl = UIRefreshControl()
+    
+    let wifiErrorNotifyLabel = UIButton()
+    
     func getClubData() {
         let jsonUrlString = "https://api.pennclubs.com/clubs/"
 
         let url = URL(string: jsonUrlString)
-
+        
         URLSession.shared.dataTask(with: url!) { (data, response, err) in
+            
+//            if err != nil{
+//                print("Error \(String(describing: err))")
+//                return
+//            }
+            
             do {
-                guard let data = data else { return }
+                defer {
+                    DispatchQueue.main.async {
+                        self.clubs.shuffle()
+                        self.collectionView.reloadData()
+                        self.refreshControl.endRefreshing()
+                    }
+                }
+                
+                guard let data = data else { print("error at data = data"); return }
                 let clubsDecoded = try JSONDecoder().decode([ClubData].self, from: data)
                 self.clubs = clubsDecoded
-                DispatchQueue.main.async {
-                    self.clubs.shuffle()
-                    self.collectionView.reloadData()
-                }
             } catch let jsonErr {
                 print("JSON Serialization Error", jsonErr)
-                
             }
         }.resume()
     }
@@ -44,10 +57,16 @@ class DiscoverController: UICollectionViewController, UICollectionViewDelegateFl
     var filterImageClicked = UIImage(systemName: "line.horizontal.3.decrease.circle.fill")!
     let discoverModeSwitch = UIButton()
     
+    
+    let x = UIButton()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        configureRefreshController()
+        
         collectionView.backgroundColor = UIColor.white
+        view.addSubview(searchController.searchBar)
         searchController.searchBar.showsBookmarkButton = true
         searchController.searchBar.setImage(filterImage, for: .bookmark, state: .normal)
         navigationItem.searchController = searchController
@@ -59,11 +78,10 @@ class DiscoverController: UICollectionViewController, UICollectionViewDelegateFl
         searchController.searchBar.searchTextField.widthAnchor.constraint(equalToConstant: searchController.searchBar.bounds.width * 0.70).isActive = true
         searchController.searchBar.searchTextField.leftAnchor.constraint(equalTo: searchController.searchBar.leftAnchor, constant: searchController.searchBar.bounds.width * 0.05 ).isActive = true
         searchController.searchBar.searchTextField.centerYAnchor.constraint(equalTo: searchController.searchBar.centerYAnchor).isActive = true
+        searchController.searchBar.layoutIfNeeded()
         
         discoverModeSwitch.layer.cornerRadius = 10
         discoverModeSwitch.backgroundColor = UIColor(red:0.38, green:0.72, blue:0.95, alpha:1.0)
-//        discoverModeSwitch.clipsToBounds = true
-//        discoverModeSwitch.setTitle("To Clubs", for: .normal)
         
        let switchImage = UIImage(systemName: "arrow.2.circlepath.circle")
                 
@@ -87,7 +105,7 @@ class DiscoverController: UICollectionViewController, UICollectionViewDelegateFl
         getClubData()
         collectionView?.register(ClubCell.self, forCellWithReuseIdentifier: "cellID")
         view.layoutIfNeeded()
-        configureFade()
+//        configureFade()
     
         discoverModeSwitch.layoutIfNeeded()
         discoverModeSwitch.layer.shadowOffset = .zero
@@ -95,7 +113,31 @@ class DiscoverController: UICollectionViewController, UICollectionViewDelegateFl
         discoverModeSwitch.layer.shadowRadius = 4
         discoverModeSwitch.layer.shadowOpacity = 0.5
         discoverModeSwitch.layer.shadowPath = UIBezierPath(rect: discoverModeSwitch.bounds).cgPath
+        
+        wifiErrorNotifyLabel.backgroundColor = .red
+        wifiErrorNotifyLabel.setTitle("Test", for: .normal)
+//        wifiErrorNotifyLabel.addTarget(self, action: #selector(testFunc), for: .touchUpInside)
+//        collectionView.addSubview(wifiErrorNotifyLabel)
+        
+//        wifiErrorNotifyLabel.translatesAutoresizingMaskIntoConstraints = false
+//        wifiErrorNotifyLabel.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+//        wifiErrorNotifyLabel.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.10).isActive = true
     }
+    
+    func configureRefreshController() {
+        if #available(iOS 10.0, *) {
+            collectionView.refreshControl = refreshControl
+        } else {
+            collectionView.addSubview(refreshControl)
+        }
+        
+        refreshControl.addTarget(self, action: #selector(refreshClubData(_:)), for: .valueChanged)
+    }
+    
+    @objc private func refreshClubData(_ sender: Any) {
+        getClubData()
+    }
+    
     
     func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
         
@@ -130,7 +172,7 @@ class DiscoverController: UICollectionViewController, UICollectionViewDelegateFl
         
     
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellID", for: indexPath) as! ClubCell
-        cell.set(club: club)
+        cell.set(clubData: club, clubDetailPageNavigation: moveToClubDetailsPage(inputClubData: ))
         
         return cell
     }
@@ -215,6 +257,16 @@ class DiscoverController: UICollectionViewController, UICollectionViewDelegateFl
         bookmarkedClubCodeArray.insert(code)
         print(bookmarkedClubCodeArray)
     }
-
+    
+    func moveToClubDetailsPage(inputClubData: ClubData) {
+       let x = ClubDetails()
+        x.set(clubData: inputClubData)
+        x.title = inputClubData.name
+        print("something")
+        self.navigationController?.pushViewController(x, animated: true)
+    }
+    
+    
+    
 }
 

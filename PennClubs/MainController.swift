@@ -23,7 +23,6 @@ class MainController: UITabBarController {
     func configureViewControllers() {
         let discover = UINavigationController(rootViewController: DiscoverController(collectionViewLayout: UICollectionViewFlowLayout()))
         
-//        discover.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 1)
         discover.tabBarItem.image = UIImage(systemName: "magnifyingglass")
         discover.tabBarItem.title = "Discover"
         
@@ -31,15 +30,9 @@ class MainController: UITabBarController {
         upcoming.tabBarItem.image = UIImage(systemName: "calendar")
         upcoming.tabBarItem.title = "Upcoming"
         
-//        upcoming.navigationItem.title = "Upcoming"
-//        upcoming.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 1)
-        
         let manage = UINavigationController(rootViewController: ManageController())
         manage.tabBarItem.image = UIImage(systemName: "doc.plaintext")
         manage.tabBarItem.title = "Manage"
-        
-//        manage.navigationItem.title = "Manage"
-//        manage.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 1)
         
         viewControllers = [manage, upcoming, discover]
     }
