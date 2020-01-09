@@ -24,9 +24,10 @@ class ClubCell : UICollectionViewCell, UICollectionViewDataSource, UICollectionV
     private var clubNameLabel = UILabel()
     private var nullImage = false
     
-    private var noClub = NSLayoutConstraint()
-    private var yesClub = NSLayoutConstraint()
+    private var noClubImageConstraint = NSLayoutConstraint()
+    private var yesClubImageConstraints = NSLayoutConstraint()
     
+    let containerView = UIView()
     private var imageWrapper = UIImageView()
     private var descriptionWrapper = UIView()
     let iconBar = UIStackView()
@@ -46,18 +47,12 @@ class ClubCell : UICollectionViewCell, UICollectionViewDataSource, UICollectionV
         tagsCollection.register(TagCell.self, forCellWithReuseIdentifier: "tagCellID")
         addSubview(containerView)
         configureContainerView()
-        self.layoutIfNeeded()
+        containerView.layoutIfNeeded()
         
-        noClub = imageWrapper.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.05)
-        yesClub = imageWrapper.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.40)
+        setUpImageWrapperConstraints()
         
         configureImageWrapper()
-//        imageWrapper.backgroundColor = .blue
-//        descriptionLabel.backgroundColor = .green
-//        clubNameLabel.backgroundColor = .brown
-        
         configureDescriptionWrapper()
-//        descriptionWrapper.backgroundColor = .red
         
         configureIconBar()
         configureClubNameLabel()
@@ -70,10 +65,11 @@ class ClubCell : UICollectionViewCell, UICollectionViewDataSource, UICollectionV
         configureDescriptionLabel()
         configureBookmarkIcon()
         configureLearnMoreButton()
-        
-        
-        
-        
+    }
+    
+    func setUpImageWrapperConstraints() {
+        noClubImageConstraint = imageWrapper.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.05)
+        yesClubImageConstraints = imageWrapper.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.40)
     }
     
     func typeToApplicationRequiredDescription(type : Int) -> String {
@@ -104,11 +100,6 @@ class ClubCell : UICollectionViewCell, UICollectionViewDataSource, UICollectionV
         }
     }
     
-    let containerView = UIView()
-    
-    let cornerRadius: CGFloat = 10.0
-    let xSpacing: CGFloat = 20
-    let ySpacing: CGFloat = 10
     var tagArray = [Tag]()
     
     func set(clubData: ClubData, clubDetailPageNavigation: @escaping ((ClubData) -> Void)) {
@@ -120,8 +111,8 @@ class ClubCell : UICollectionViewCell, UICollectionViewDataSource, UICollectionV
             imageWrapper.addSubview(clubImageView)
             clubImageView.kf.setImage(with: clubImage)
             
-            noClub.isActive = false
-            yesClub.isActive = true
+            noClubImageConstraint.isActive = false
+            yesClubImageConstraints.isActive = true
             
             clubImageView.contentMode = UIView.ContentMode.scaleAspectFit
             clubImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -130,11 +121,10 @@ class ClubCell : UICollectionViewCell, UICollectionViewDataSource, UICollectionV
             clubImageView.leadingAnchor.constraint(equalTo: imageWrapper.leadingAnchor, constant: 10).isActive = true
             clubImageView.trailingAnchor.constraint(equalTo: imageWrapper.trailingAnchor, constant: -10).isActive = true
             clubImageView.centerYAnchor.constraint(equalTo: imageWrapper.centerYAnchor).isActive = true
-            
         } else {
             clubImageView.removeFromSuperview()
-            yesClub.isActive = false
-            noClub.isActive = true
+            yesClubImageConstraints.isActive = false
+            noClubImageConstraint.isActive = true
         }
         
         clubNameLabel.text = clubData.name
@@ -201,7 +191,7 @@ class ClubCell : UICollectionViewCell, UICollectionViewDataSource, UICollectionV
         layer.shadowRadius = 4.0
           
         // set the cornerRadius of the containerView's layer
-        containerView.layer.cornerRadius = cornerRadius
+        containerView.layer.cornerRadius = 10.0
         containerView.layer.masksToBounds = true
         containerView.clipsToBounds = true
         containerView.backgroundColor = .white
@@ -209,17 +199,17 @@ class ClubCell : UICollectionViewCell, UICollectionViewDataSource, UICollectionV
         containerView.layer.shadowOffset = .zero
         containerView.layer.shadowRadius = 3
         containerView.layer.shadowOpacity = 0.5
-        let shadowPath = UIBezierPath(roundedRect: bounds.insetBy(dx: CGFloat(xSpacing), dy: CGFloat(ySpacing)), cornerRadius: 10)
+        let shadowPath = UIBezierPath(roundedRect: bounds.insetBy(dx: CGFloat(20), dy: CGFloat(10)), cornerRadius: 10)
         containerView.layer.shadowPath = shadowPath.cgPath
 
         // add constraints
         containerView.translatesAutoresizingMaskIntoConstraints = false
 
         // pin the containerView to the edges to the view
-        containerView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: xSpacing).isActive = true
-        containerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -xSpacing).isActive = true
-        containerView.topAnchor.constraint(equalTo: topAnchor, constant: ySpacing).isActive = true
-        containerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -ySpacing).isActive = true
+        containerView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20).isActive = true
+        containerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20).isActive = true
+        containerView.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
+        containerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10).isActive = true
     }
     
     func configureImageWrapper() {
@@ -230,7 +220,7 @@ class ClubCell : UICollectionViewCell, UICollectionViewDataSource, UICollectionV
         imageWrapper.clipsToBounds = true
         imageWrapper.trailingAnchor.constraint(equalTo: containerView.trailingAnchor).isActive = true
         imageWrapper.topAnchor.constraint(equalTo: containerView.topAnchor, constant: containerView.bounds.height * 0.20).isActive = true
-        noClub.isActive = true
+        noClubImageConstraint.isActive = true
             
         imageWrapper.addSubview(clubImageView)
         

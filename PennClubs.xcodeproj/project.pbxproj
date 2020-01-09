@@ -21,7 +21,8 @@
 		C8D0EB9623A8A5BC00DAF3B1 /* PennClubsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D0EB9523A8A5BC00DAF3B1 /* PennClubsUITests.swift */; };
 		C8D0EBA423A8A7CF00DAF3B1 /* ClubCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D0EBA323A8A7CF00DAF3B1 /* ClubCell.swift */; };
 		C8D0EBA623A8A80B00DAF3B1 /* ClubData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D0EBA523A8A80B00DAF3B1 /* ClubData.swift */; };
-		C8E9629523C48F15008BD5E7 /* ClubDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E9629423C48F15008BD5E7 /* ClubDetails.swift */; };
+		C8E9629D23C6CB05008BD5E7 /* ClubDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E9629B23C6CB04008BD5E7 /* ClubDetails.swift */; };
+		C8E9629E23C6CB05008BD5E7 /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E9629C23C6CB05008BD5E7 /* MenuBar.swift */; };
 		E21C3FE9FAE3FD71B4D05EBD /* Pods_PennClubs_PennClubsUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BFBE7800A288E6095E2AD89 /* Pods_PennClubs_PennClubsUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -69,7 +70,8 @@
 		C8D0EB9723A8A5BC00DAF3B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C8D0EBA323A8A7CF00DAF3B1 /* ClubCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubCell.swift; sourceTree = "<group>"; };
 		C8D0EBA523A8A80B00DAF3B1 /* ClubData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubData.swift; sourceTree = "<group>"; };
-		C8E9629423C48F15008BD5E7 /* ClubDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubDetails.swift; sourceTree = "<group>"; };
+		C8E9629B23C6CB04008BD5E7 /* ClubDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClubDetails.swift; sourceTree = "<group>"; };
+		C8E9629C23C6CB05008BD5E7 /* MenuBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
 		CB7707544B75FC440EF93668 /* Pods-PennClubs.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PennClubs.debug.xcconfig"; path = "Target Support Files/Pods-PennClubs/Pods-PennClubs.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -114,11 +116,11 @@
 		C8B30A2923B1891E00934F38 /* Discover */ = {
 			isa = PBXGroup;
 			children = (
+				C8E9629623C6CA6A008BD5E7 /* ClubDetails */,
 				C8D0EB7723A8A5B900DAF3B1 /* DiscoverController.swift */,
 				C8D0EBA523A8A80B00DAF3B1 /* ClubData.swift */,
 				C85DC88523AF97D70074D797 /* TagCell.swift */,
 				C8D0EBA323A8A7CF00DAF3B1 /* ClubCell.swift */,
-				C8E9629423C48F15008BD5E7 /* ClubDetails.swift */,
 			);
 			path = Discover;
 			sourceTree = "<group>";
@@ -192,6 +194,15 @@
 				C8D0EB9723A8A5BC00DAF3B1 /* Info.plist */,
 			);
 			path = PennClubsUITests;
+			sourceTree = "<group>";
+		};
+		C8E9629623C6CA6A008BD5E7 /* ClubDetails */ = {
+			isa = PBXGroup;
+			children = (
+				C8E9629B23C6CB04008BD5E7 /* ClubDetails.swift */,
+				C8E9629C23C6CB05008BD5E7 /* MenuBar.swift */,
+			);
+			path = ClubDetails;
 			sourceTree = "<group>";
 		};
 		CF6AAE8DF9827D9D1FC3B60E /* Pods */ = {
@@ -450,9 +461,10 @@
 				C8B30A2823B184C900934F38 /* MainController.swift in Sources */,
 				C8D0EBA623A8A80B00DAF3B1 /* ClubData.swift in Sources */,
 				C8D0EB7623A8A5B900DAF3B1 /* SceneDelegate.swift in Sources */,
-				C8E9629523C48F15008BD5E7 /* ClubDetails.swift in Sources */,
+				C8E9629D23C6CB05008BD5E7 /* ClubDetails.swift in Sources */,
 				C8B30A2423B1848500934F38 /* UpcomingController.swift in Sources */,
 				C8D0EBA423A8A7CF00DAF3B1 /* ClubCell.swift in Sources */,
+				C8E9629E23C6CB05008BD5E7 /* MenuBar.swift in Sources */,
 				C85DC88623AF97D70074D797 /* TagCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

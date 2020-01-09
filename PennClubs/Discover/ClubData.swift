@@ -8,6 +8,22 @@
 
 import UIKit
 
+struct ClubData: Decodable {
+    var name : String
+    var code : String
+    var description : String?
+    var founded : String?
+    var size : Int?
+    var email : String?
+    var tags : [Tag]
+    var subtitle : String?
+    var application_required : Int?
+    var accepting_members : Bool
+    var image_url : String?
+    var favorite_count : Int?
+    var active : Bool?
+}
+
 struct Classification {
     var id : IntegerLiteralType
     var name: String
@@ -59,22 +75,6 @@ enum tags {
     case Umbrella_Organization
     case Writing
     case Youth
-}
-
-struct ClubData: Decodable {
-    var name : String
-    var code : String
-    var description : String?
-    var founded : String?
-    var size : Int?
-    var email : String?
-    var tags : [Tag]
-    var subtitle : String?
-    var application_required : Int?
-    var accepting_members : Bool
-    var image_url : String?
-    var favorite_count : Int?
-    var active : Bool?
 }
 
 struct Tag: Decodable {

@@ -105,7 +105,6 @@ class DiscoverController: UICollectionViewController, UICollectionViewDelegateFl
         getClubData()
         collectionView?.register(ClubCell.self, forCellWithReuseIdentifier: "cellID")
         view.layoutIfNeeded()
-//        configureFade()
     
         discoverModeSwitch.layoutIfNeeded()
         discoverModeSwitch.layer.shadowOffset = .zero
@@ -113,15 +112,31 @@ class DiscoverController: UICollectionViewController, UICollectionViewDelegateFl
         discoverModeSwitch.layer.shadowRadius = 4
         discoverModeSwitch.layer.shadowOpacity = 0.5
         discoverModeSwitch.layer.shadowPath = UIBezierPath(rect: discoverModeSwitch.bounds).cgPath
-        
-        wifiErrorNotifyLabel.backgroundColor = .red
-        wifiErrorNotifyLabel.setTitle("Test", for: .normal)
+//        
+//        let maskView = UIView()
+//        view.addSubview(maskView)
+//        maskView.translatesAutoresizingMaskIntoConstraints = false
+//        maskView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+//        maskView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.10).isActive = true
+//        maskView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+//        maskView.clipsToBounds = true
+//        
+//        wifiErrorNotifyLabel.backgroundColor = .red
+//        wifiErrorNotifyLabel.setTitle("Test", for: .normal)
 //        wifiErrorNotifyLabel.addTarget(self, action: #selector(testFunc), for: .touchUpInside)
-//        collectionView.addSubview(wifiErrorNotifyLabel)
-        
+//        maskView.addSubview(wifiErrorNotifyLabel)
+//
 //        wifiErrorNotifyLabel.translatesAutoresizingMaskIntoConstraints = false
-//        wifiErrorNotifyLabel.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-//        wifiErrorNotifyLabel.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.10).isActive = true
+//        wifiErrorNotifyLabel.widthAnchor.constraint(equalTo: maskView.widthAnchor).isActive = true
+//        wifiErrorNotifyLabel.heightAnchor.constraint(equalTo: maskView.heightAnchor, multiplier: 0.10).isActive = true
+//        wifiErrorNotifyLabel.topAnchor.constraint(equalTo: maskView.topAnchor, constant: 0).isActive = true
+//
+//        wifiErrorNotifyLabel.mask = maskView
+        
+    }
+    
+    @objc func testFunc() {
+        print("touched Something")
     }
     
     func configureRefreshController() {
@@ -138,7 +153,6 @@ class DiscoverController: UICollectionViewController, UICollectionViewDelegateFl
         getClubData()
     }
     
-    
     func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
         
         if (isFiltering) {
@@ -149,7 +163,6 @@ class DiscoverController: UICollectionViewController, UICollectionViewDelegateFl
             isFiltering = true
         }
         
-        print("clicked")
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -196,6 +209,7 @@ class DiscoverController: UICollectionViewController, UICollectionViewDelegateFl
         clubs.shuffle()
         self.collectionView.reloadData()
     }
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchController.searchBar.text == nil || searchController.searchBar.text == "" {
             isSearching = false
@@ -212,8 +226,6 @@ class DiscoverController: UICollectionViewController, UICollectionViewDelegateFl
         }
     }
     
-
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         CGSize.init(width: view.frame.width, height: 200)
     }
@@ -221,7 +233,6 @@ class DiscoverController: UICollectionViewController, UICollectionViewDelegateFl
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
-    
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
@@ -234,7 +245,7 @@ class DiscoverController: UICollectionViewController, UICollectionViewDelegateFl
     public override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
         if UIDevice.current.orientation.isLandscape,
             let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.itemSize = CGSize(width: 10, height: 10)
+            layout.itemSize = CGSize(width: 10, height: 200)
             layout.invalidateLayout()
         } else if UIDevice.current.orientation.isPortrait,
             let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
@@ -244,14 +255,14 @@ class DiscoverController: UICollectionViewController, UICollectionViewDelegateFl
         }
     }
     
-    func configureFade() {
-        let fadeMask = CAGradientLayer()
-        view.layer.addSublayer(fadeMask)
-        fadeMask.frame = CGRect(x: 0, y: searchController.searchBar.frame.height, width: self.collectionView.frame.width, height: self.collectionView.frame.height - (self.tabBarController?.tabBar.frame.height ?? 0))
-       fadeMask.colors = [UIColor(white: 1, alpha: 1).cgColor, UIColor(white: 1, alpha: 0).cgColor, UIColor(white: 1, alpha: 0).cgColor, UIColor(white: 1, alpha: 1).cgColor]
-       
-        fadeMask.locations = [0.05, 0.10, 0.85, 0.93]
-    }
+//    func configureFade() {
+//        let fadeMask = CAGradientLayer()
+//        view.layer.addSublayer(fadeMask)
+//        fadeMask.frame = CGRect(x: 0, y: searchController.searchBar.frame.height, width: self.collectionView.frame.width, height: self.collectionView.frame.height - (self.tabBarController?.tabBar.frame.height ?? 0))
+//       fadeMask.colors = [UIColor(white: 1, alpha: 1).cgColor, UIColor(white: 1, alpha: 0).cgColor, UIColor(white: 1, alpha: 0).cgColor, UIColor(white: 1, alpha: 1).cgColor]
+//
+//        fadeMask.locations = [0.05, 0.10, 0.85, 0.93]
+//    }
     
     func bookmarkClubWithCode(code: String) {
         bookmarkedClubCodeArray.insert(code)
@@ -259,11 +270,11 @@ class DiscoverController: UICollectionViewController, UICollectionViewDelegateFl
     }
     
     func moveToClubDetailsPage(inputClubData: ClubData) {
-       let x = ClubDetails()
-        x.set(clubData: inputClubData)
-        x.title = inputClubData.name
+        let clubDetailsView = ClubDetails()
+        clubDetailsView.set(clubData: inputClubData)
+        clubDetailsView.title = inputClubData.name
         print("something")
-        self.navigationController?.pushViewController(x, animated: true)
+        self.navigationController?.pushViewController(clubDetailsView, animated: true)
     }
     
     
