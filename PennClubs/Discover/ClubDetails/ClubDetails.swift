@@ -9,19 +9,23 @@
 import UIKit
 import Kingfisher
 
-class ClubDetails: UIViewController, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class ClubDetails: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
     let clubName = UILabel()
     var clubImage : ImageResource? = nil
     let imageWrapper = UIView()
     var clubImageView = UIImageView()
+    var clubCode : String = ""
     
     var yesClubImageConstraint = NSLayoutConstraint()
     var noClubImageConstraint = NSLayoutConstraint()
     
+    let cellId = "cellId"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        collectionView.backgroundColor = .white
     }
     
     func set(clubData: ClubData) {
@@ -29,6 +33,19 @@ class ClubDetails: UIViewController, UICollectionViewDelegate, UICollectionViewD
         setUpImageWrapperConstraints()
         configureClubImageView(input: clubData)
         setupMenuBar()
+        configureCollectionView()
+        clubCode = clubData.code
+        (viewArray[2] as! Members).getClubData(input: clubCode)
+    }
+    
+    func configureCollectionView() {
+        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: cellId)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.topAnchor.constraint(equalTo: menuBar.bottomAnchor).isActive = true
+        collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        collectionView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 1.0).isActive = true
+        collectionView.isPagingEnabled = true
+        collectionView.showsHorizontalScrollIndicator = false
     }
     
     func configureImageWrapper() {
@@ -64,8 +81,9 @@ class ClubDetails: UIViewController, UICollectionViewDelegate, UICollectionViewD
         }
     }
     
-    let menuBar : MenuBar = {
+    lazy var menuBar : MenuBar = {
         let mb = MenuBar()
+        mb.clubDetails = self
        return mb
     }()
     
@@ -83,7 +101,61 @@ class ClubDetails: UIViewController, UICollectionViewDelegate, UICollectionViewD
         menuBar.layer.addBorder(edge: .bottom, color: .lightGray, thickness: 1.0)
     }
     
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 3
+    }
+
+    let viewArray = [Details(), Events(), Members()]
     
+    
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+//        var view = UIView()
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
+        
+        for subview in cell.subviews {
+            subview.removeFromSuperview()
+            print("removed subview")
+        }
+    
+        let viewer = viewArray[indexPath.item].view
+        
+        cell.addSubview(viewer!)
+        print("added subview")
+        
+//        if indexPath.item == 0 {
+//            cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId1, for: indexPath)
+//            cell.addSubview(viewArray[indexPath.item].view)
+//        } else if indexPath.item == 1 {
+//            cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId2, for: indexPath)
+//            cell.addSubview(viewArray[indexPath.item].view)
+//        } else {
+//            cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId3, for: indexPath)
+//            cell.addSubview(viewArray[indexPath.item].view)
+//        }
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
+    func scrollToMenuIndex(menuIndex: Int) {
+        let indexPath = IndexPath(item: menuIndex, section: 0)
+        collectionView.scrollToItem(at: indexPath, at: [], animated: true)
+    }
+    
+    override func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        let targetIndex = targetContentOffset.pointee.x/view.safeAreaLayoutGuide.layoutFrame.width
+        
+        let indexPath = IndexPath(item: Int(targetIndex), section: 0)
+        menuBar.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: [])
+    }
 }
 
 extension CALayer {

@@ -14,6 +14,8 @@ class MenuBar : UIView, UICollectionViewDataSource, UICollectionViewDelegate, UI
     let menuBars = ["Details", "Events", "Members"]
     let cellId = "menuBarCellId"
     
+    var clubDetails: ClubDetails?
+    
     lazy var collectionView : UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -55,6 +57,10 @@ class MenuBar : UIView, UICollectionViewDataSource, UICollectionViewDelegate, UI
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: frame.width/3, height: frame.height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        clubDetails?.scrollToMenuIndex(menuIndex: indexPath.item)
     }
 
 //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

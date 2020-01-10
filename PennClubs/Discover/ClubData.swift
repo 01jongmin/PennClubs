@@ -24,6 +24,14 @@ struct ClubData: Decodable {
     var active : Bool?
 }
 
+struct MemberData: Decodable {
+    var name : String
+    var title : String
+    var active : Bool
+    var `public` : Bool
+    var image : String?
+}
+
 struct Classification {
     var id : IntegerLiteralType
     var name: String

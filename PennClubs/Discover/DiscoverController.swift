@@ -112,7 +112,7 @@ class DiscoverController: UICollectionViewController, UICollectionViewDelegateFl
         discoverModeSwitch.layer.shadowRadius = 4
         discoverModeSwitch.layer.shadowOpacity = 0.5
         discoverModeSwitch.layer.shadowPath = UIBezierPath(rect: discoverModeSwitch.bounds).cgPath
-//        
+//
 //        let maskView = UIView()
 //        view.addSubview(maskView)
 //        maskView.translatesAutoresizingMaskIntoConstraints = false
@@ -120,7 +120,7 @@ class DiscoverController: UICollectionViewController, UICollectionViewDelegateFl
 //        maskView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.10).isActive = true
 //        maskView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
 //        maskView.clipsToBounds = true
-//        
+//
 //        wifiErrorNotifyLabel.backgroundColor = .red
 //        wifiErrorNotifyLabel.setTitle("Test", for: .normal)
 //        wifiErrorNotifyLabel.addTarget(self, action: #selector(testFunc), for: .touchUpInside)
@@ -270,7 +270,9 @@ class DiscoverController: UICollectionViewController, UICollectionViewDelegateFl
     }
     
     func moveToClubDetailsPage(inputClubData: ClubData) {
-        let clubDetailsView = ClubDetails()
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        let clubDetailsView = ClubDetails(collectionViewLayout: layout)
         clubDetailsView.set(clubData: inputClubData)
         clubDetailsView.title = inputClubData.name
         print("something")
