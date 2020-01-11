@@ -218,7 +218,7 @@ class DiscoverController: UICollectionViewController, UICollectionViewDelegateFl
             }
         } else {
             isSearching = true
-            filteredClubs = clubs.filter({$0.name.range(of: searchController.searchBar.text!, options: .caseInsensitive) != nil || $0.description?.range(of: searchController.searchBar.text!, options: .caseInsensitive) != nil })
+            filteredClubs = clubs.filter({$0.name.range(of: searchController.searchBar.text!, options: .caseInsensitive) != nil || $0.description.range(of: searchController.searchBar.text!, options: .caseInsensitive) != nil })
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
             }
@@ -270,7 +270,7 @@ class DiscoverController: UICollectionViewController, UICollectionViewDelegateFl
     
     func bookmarkClubWithCode(code: String) {
         bookmarkedClubCodeArray.insert(code)
-        print(bookmarkedClubCodeArray)
+//        print(bookmarkedClubCodeArray)
     }
     
     func moveToClubDetailsPage(inputClubData: ClubData) {
@@ -285,7 +285,7 @@ class DiscoverController: UICollectionViewController, UICollectionViewDelegateFl
 //        navigationController?.navigationBar.prefersLargeTitles = true
 //        navigationController?.navigationBar.
         
-        print("something")
+//        print("something")
         self.navigationController?.pushViewController(clubDetailsView, animated: true)
     }
     

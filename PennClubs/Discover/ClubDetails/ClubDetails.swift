@@ -88,7 +88,7 @@ class ClubDetails: UICollectionViewController, UICollectionViewDelegateFlowLayou
     func configureClubNameLabel(input clubName: String) {
         view.addSubview(clubNameLabel)
         clubNameLabel.translatesAutoresizingMaskIntoConstraints = false
-//        clubNameLabel.backgroundColor = .blue
+        
         clubNameLabel.heightAnchor.constraint(equalTo: imageWrapper.heightAnchor, multiplier: 0.6).isActive = true
         clubNameLabel.leftAnchor.constraint(equalTo: imageWrapper.rightAnchor).isActive = true
         clubNameLabel.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
@@ -98,7 +98,6 @@ class ClubDetails: UICollectionViewController, UICollectionViewDelegateFlowLayou
         clubNameLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 25)
         clubNameLabel.adjustsFontSizeToFitWidth = true
         clubNameLabel.numberOfLines = 2
-//        clubImageView.centerYAnchor.constraint(equalTo: imageWrapper.centerYAnchor).isActive = true
     }
 
     lazy var menuBar : MenuBar = {

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+//import FontAwesome_swift
 
 class Details : UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -16,7 +17,7 @@ class Details : UIViewController, UITableViewDelegate, UITableViewDataSource {
     let cellId = "cellId"
     var clubDetailsData : ClubDetailsData? = nil
     
-    let sectionContent = [[String]]()
+    var sectionContent : [[String]] = [[],[],[]]
     
     override func viewDidLoad() {
         view.backgroundColor = .white
@@ -32,6 +33,8 @@ class Details : UIViewController, UITableViewDelegate, UITableViewDataSource {
         detailsTableView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 1.0).isActive = true
         detailsTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         detailsTableView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor).isActive = true
+        
+        detailsTableView.allowsSelection = false
     }
     
     func getClubData(input clubCode: String) {
@@ -58,56 +61,141 @@ class Details : UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func sortClubDetailsData() {
+        sectionContent[0] = [(clubDetailsData?.description ?? "")]
+        sectionContent[1] = [typeToSizeDescription(type: clubDetailsData?.size ?? 0),
+                             boolToAcceptingApplicationDescription(accepting: clubDetailsData?.accepting_members ?? false),
+                             typeToApplicationRequiredDescription(type: clubDetailsData?.application_required ?? 0)]
+
+        var social : [String] = []
+        
+        if let facebookString = clubDetailsData?.facebook {
+            if (!facebookString.isEmpty) {
+                social = social + [facebookString]
+            }
+        }
+        
+        if let emailString = clubDetailsData?.email {
+            if (!emailString.isEmpty) {
+                social = social + [emailString]
+            }
+        }
+        
+        if let twitterString = clubDetailsData?.twitter {
+            if (!twitterString.isEmpty) {
+                social = social + [twitterString]
+            }
+        }
+        
+        if let instagramString = clubDetailsData?.instagram {
+            if (!instagramString.isEmpty) {
+                social = social + [instagramString]
+            }
+        }
+        
+        if let linkedInString = clubDetailsData?.linkedin {
+            if (!linkedInString.isEmpty) {
+                social = social + [linkedInString]
+            }
+        }
+        
+        if let githubString = clubDetailsData?.github {
+            if (!githubString.isEmpty) {
+                social = social + [githubString]
+            }
+        }
+        
+        if let websiteString = clubDetailsData?.website {
+            if (!websiteString.isEmpty) {
+                social = social + [websiteString]
+            }
+        }
+    
+        sectionContent[2] = social
         
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 3
     }
-
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let sectionHeaderView = UIView()
+        
+        let blurEffect = UIBlurEffect(style: .extraLight)
+        let blurredEffectView = UIVisualEffectView(effect: blurEffect)
+        blurredEffectView.frame = CGRect(x: 0, y: 0, width: view.safeAreaLayoutGuide.layoutFrame.width, height: 60)
+        sectionHeaderView.addSubview(blurredEffectView)
+        
         let label = UILabel()
-        label.text = sectionTitles[section]
-        label.backgroundColor = .white
-
-        return label
+        label.frame = CGRect(x: 0, y: 0, width: view.safeAreaLayoutGuide.layoutFrame.width, height: 60)
+        label.text = "   " + sectionTitles[section]
+            
+        label.textColor = .black
+        sectionHeaderView.addSubview(label)
+        
+        return sectionHeaderView
     }
-//
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 60
+    }
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            return 1
+            return sectionContent[0].count
         } else if section == 1 {
-            return 3
+            return sectionContent[1].count
         } else {
-            return 4
+            return sectionContent[2].count
         }
     }
     
-    let tester = [["We are a team of student software engineers, product designers, and business developers. Our ultimate goal is improving the Penn community with technology. In addition to creating 100% free high-quality products, we give back with educational resources and technical support."], ["20 - 50 Members", "Not Currently Accepting Members", "Application Required for All Roles"], ["facebook.com/labsatpenn", "pennappslabs@gmail.com", "pennlabs.org", "github.com/pennlabs"]]
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+//        let cell = UITableViewCell.init(style: .default, reuseIdentifier: cellId)
         let cell = detailsTableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
         
-        let x = UITextView()
-        x.text = tester[indexPath.section][indexPath.row]
+//        cell.textLabel?.showsLargeContentViewer = true
+//        cell.textLabel?.largeContentImage = UIImage(named: "plus.circle.fill")
+        
+        cell.textLabel?.textColor = .darkGray
+        cell.contentView.tintColor = .darkGray
+        cell.textLabel?.text = sectionContent[indexPath.section][indexPath.row]
         
         if (indexPath.section == 0) {
-            x.font = UIFont(name: "HelveticaNeue", size: 20)
-        } else{
-            x.font = UIFont(name: "HelveticaNeue", size: 10)
+            if (sectionContent[0][0] == "") {
+                cell.textLabel?.text = "This club has not added a description yet."
+            }
+            
         }
         
-        x.isEditable = false
-        x.isScrollEnabled = false
+        if (indexPath.section == 1) {
+            if (indexPath.item == 0) {
+                cell.imageView?.image = UIImage(systemName: "person")?.withTintColor(.red)
+            } else if (indexPath.item == 1) {
+                if (clubDetailsData?.accepting_members ?? true) {
+                    cell.imageView?.image = UIImage(systemName: "checkmark.circle")
+                } else {
+                    cell.imageView?.image = UIImage(systemName: "xmark.circle")
+                }
+            } else if (indexPath.item == 2) {
+                cell.imageView?.image = UIImage(systemName: "square.and.pencil")
+            }
+        } else {
+            cell.imageView?.image = nil
+        }
         
-        cell.addSubview(x)
-        
-        x.translatesAutoresizingMaskIntoConstraints = false
-        x.leftAnchor.constraint(equalTo: cell.leftAnchor).isActive = true
-        x.rightAnchor.constraint(equalTo: cell.rightAnchor).isActive = true
-        x.topAnchor.constraint(equalTo: cell.topAnchor).isActive = true
-        x.bottomAnchor.constraint(equalTo: cell.bottomAnchor).isActive = true
+        cell.textLabel?.numberOfLines = 0;
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 100
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -118,5 +206,68 @@ class Details : UIViewController, UITableViewDelegate, UITableViewDataSource {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+        
     
+    func typeToApplicationRequiredDescription(type : Int) -> String {
+        
+//        let icon = UIImage(systemName: "test")
+       switch type {
+           case 1:
+               return " Apps for No Roles "
+           case 2:
+               return " Apps for Some Roles "
+           case 3:
+               return " Application Required for All Roles "
+           default:
+               return " N/A "
+           }
+       }
+       
+   func typeToSizeDescription(type : Int) -> String {
+       switch type {
+       case 1:
+           return "< 20"
+       case 2:
+           return " 20 - 50 "
+       case 3:
+           return " 50 - 100 "
+       case 4:
+           return "> 100"
+       default:
+           return "N/A"
+       }
+   }
+    
+    func boolToAcceptingApplicationDescription(accepting: Bool) -> String {
+        if accepting {
+            return "Currently Accepting Members"
+        } else {
+            return "Not Currently Accepting Members"
+        }
+    }
+
 }
+
+
+//extension Data {
+//    var html2AttributedString: NSAttributedString? {
+//        do {
+//            return try NSAttributedString(data: self, options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding: String.Encoding.utf8.rawValue], documentAttributes: nil)
+//        } catch {
+//            print("error:", error)
+//            return  nil
+//        }
+//    }
+//    var html2String: String {
+//        return html2AttributedString?.string ?? ""
+//    }
+//}
+//
+//extension String {
+//    var html2AttributedString: NSAttributedString? {
+//        return Data(utf8).html2AttributedString
+//    }
+//    var html2String: String {
+//        return html2AttributedString?.string ?? ""
+//    }
+//}

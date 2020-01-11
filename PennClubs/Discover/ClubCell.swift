@@ -404,7 +404,7 @@ class ClubCell : UICollectionViewCell, UICollectionViewDataSource, UICollectionV
     }
     
     @objc func viewClubDetails() {
-        print(clubCode)
+//        print(clubCode)
         return x!(y!)
     }
     

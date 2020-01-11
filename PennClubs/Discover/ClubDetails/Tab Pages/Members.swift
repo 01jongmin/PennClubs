@@ -71,25 +71,24 @@ class Members : UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let sectionHeaderView = UIView()
-//
+        
         let blurEffect = UIBlurEffect(style: .extraLight)
         let blurredEffectView = UIVisualEffectView(effect: blurEffect)
-        blurredEffectView.frame = CGRect(x: 0, y: 0, width: view.safeAreaLayoutGuide.layoutFrame.width, height: tableView.frame.height * 0.10)
+        blurredEffectView.frame = CGRect(x: 0, y: 0, width: view.safeAreaLayoutGuide.layoutFrame.width, height: 60)
         sectionHeaderView.addSubview(blurredEffectView)
         
         let label = UILabel()
-        label.frame = CGRect(x: 0, y: 0, width: view.safeAreaLayoutGuide.layoutFrame.width, height: tableView.frame.height * 0.10)
+        label.frame = CGRect(x: 0, y: 0, width: view.safeAreaLayoutGuide.layoutFrame.width, height: 60)
         label.text = "   " + titles[section]
         label.textColor = .black
         sectionHeaderView.addSubview(label)
-//        print()
         
 //        label.backgroundColor = .white
         return sectionHeaderView
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return tableView.frame.height * 0.10
+        return 60
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
