@@ -70,11 +70,22 @@ class Members : UIViewController, UITableViewDelegate, UITableViewDataSource {
 //    }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let label = UILabel()
-        label.text = titles[section]
+        let sectionHeaderView = UIView()
+//
+        let blurEffect = UIBlurEffect(style: .extraLight)
+        let blurredEffectView = UIVisualEffectView(effect: blurEffect)
+        blurredEffectView.frame = CGRect(x: 0, y: 0, width: view.safeAreaLayoutGuide.layoutFrame.width, height: tableView.frame.height * 0.10)
+        sectionHeaderView.addSubview(blurredEffectView)
         
-        label.backgroundColor = .white
-        return label
+        let label = UILabel()
+        label.frame = CGRect(x: 0, y: 0, width: view.safeAreaLayoutGuide.layoutFrame.width, height: tableView.frame.height * 0.10)
+        label.text = "   " + titles[section]
+        label.textColor = .black
+        sectionHeaderView.addSubview(label)
+//        print()
+        
+//        label.backgroundColor = .white
+        return sectionHeaderView
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -104,9 +115,37 @@ class Members : UIViewController, UITableViewDelegate, UITableViewDataSource {
             counter = counter + 1
         }
         
-//        var organizeCounter = 0
+        var positionCounter = 0
         
-//        print(twoDimensional)
+        if let position = titles.firstIndex(of: "Owner") {
+            titles.swapAt(positionCounter, position)
+            twoDimensional.swapAt(positionCounter, position)
+            positionCounter = positionCounter + 1
+        }
+        
+        if let position = titles.firstIndex(of: "Co-Director") {
+            titles.swapAt(positionCounter, position)
+            twoDimensional.swapAt(positionCounter, position)
+            positionCounter = positionCounter + 1
+        }
+        
+        if let position = titles.firstIndex(of: "Team Lead") {
+            titles.swapAt(positionCounter, position)
+            twoDimensional.swapAt(positionCounter, position)
+            positionCounter = positionCounter + 1
+        }
+        
+        if let position = titles.firstIndex(of: "Marketing & Content Strategy") {
+            titles.swapAt(positionCounter, position)
+            twoDimensional.swapAt(positionCounter, position)
+            positionCounter = positionCounter + 1
+        }
+        
+        if let position = titles.firstIndex(of: "Member") {
+            titles.swapAt(positionCounter, position)
+            twoDimensional.swapAt(positionCounter, position)
+            positionCounter = positionCounter + 1
+        }
         
     }
     
@@ -120,79 +159,4 @@ class Members : UIViewController, UITableViewDelegate, UITableViewDataSource {
         cell.set(member: twoDimensional[indexPath.section][indexPath.row])
         return cell
     }
-}
-
-class MemberCell : UITableViewCell {
-    
-    let memberNameLabel = UILabel()
-    let memberTitleLabel = UILabel()
-    
-    let imageWrapper = UIView()
-    let descriptionWrapper = UIView()
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.backgroundColor = .white
-        configureImageWrapper()
-        configureDescriptionWrapper()
-    }
-    
-    func configureImageWrapper() {
-        addSubview(imageWrapper)
-        
-        imageWrapper.backgroundColor = .lightGray
-        
-        imageWrapper.translatesAutoresizingMaskIntoConstraints = false
-        imageWrapper.leftAnchor.constraint(equalToSystemSpacingAfter: leftAnchor, multiplier: 2.0).isActive = true
-        imageWrapper.widthAnchor.constraint(equalTo: heightAnchor, multiplier: 0.70).isActive = true
-        imageWrapper.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        imageWrapper.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.70).isActive = true
-    }
-    
-    func configureDescriptionWrapper() {
-        addSubview(descriptionWrapper)
-        
-        descriptionWrapper.translatesAutoresizingMaskIntoConstraints = false
-        descriptionWrapper.leftAnchor.constraint(equalTo: imageWrapper.rightAnchor).isActive = true
-        descriptionWrapper.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.75).isActive = true
-        descriptionWrapper.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        descriptionWrapper.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.70).isActive = true
-    }
-    
-    func set(member: MemberData) {
-        
-        addSubview(memberNameLabel)
-        memberNameLabel.numberOfLines = 1
-        memberNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        memberNameLabel.leftAnchor.constraint(equalToSystemSpacingAfter: descriptionWrapper.leftAnchor, multiplier: 2.0).isActive = true
-        memberNameLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.70).isActive = true
-        memberNameLabel.heightAnchor.constraint(equalTo: descriptionWrapper.heightAnchor, multiplier: 0.60).isActive = true
-        memberNameLabel.topAnchor.constraint(equalTo: descriptionWrapper.topAnchor).isActive = true
-        
-        memberNameLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 20)
-        memberNameLabel.text = member.name
-        memberNameLabel.adjustsFontSizeToFitWidth = true
-        memberNameLabel.backgroundColor = .white
-        
-        addSubview(memberTitleLabel)
-        memberTitleLabel.numberOfLines = 1
-        memberTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        memberTitleLabel.leftAnchor.constraint(equalToSystemSpacingAfter: descriptionWrapper.leftAnchor, multiplier: 2.0).isActive = true
-        memberTitleLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.70).isActive = true
-        memberTitleLabel.heightAnchor.constraint(equalTo: descriptionWrapper.heightAnchor, multiplier: 0.40).isActive = true
-        memberTitleLabel.topAnchor.constraint(equalTo: memberNameLabel.bottomAnchor).isActive = true
-        
-        memberTitleLabel.font = UIFont(name: "HelveticaNeue", size: 15)
-        memberTitleLabel.text = member.title
-        memberTitleLabel.textColor = .darkGray
-        memberTitleLabel.adjustsFontSizeToFitWidth = true
-        memberTitleLabel.backgroundColor = .white
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
 }

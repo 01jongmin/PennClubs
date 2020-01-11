@@ -263,6 +263,11 @@ class DiscoverController: UICollectionViewController, UICollectionViewDelegateFl
 //        fadeMask.locations = [0.05, 0.10, 0.85, 0.93]
 //    }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.prefersLargeTitles = false
+    }
+    
     func bookmarkClubWithCode(code: String) {
         bookmarkedClubCodeArray.insert(code)
         print(bookmarkedClubCodeArray)
@@ -276,6 +281,7 @@ class DiscoverController: UICollectionViewController, UICollectionViewDelegateFl
         clubDetailsView.title = inputClubData.name
         
 //        testing
+//        navigationController?.
 //        navigationController?.navigationBar.prefersLargeTitles = true
 //        navigationController?.navigationBar.
         

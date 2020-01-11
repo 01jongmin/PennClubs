@@ -35,6 +35,7 @@ class ClubDetails: UICollectionViewController, UICollectionViewDelegateFlowLayou
         configureClubNameLabel(input: clubData.name)
         setupMenuBar()
         configureCollectionView()
+        (viewArray[0] as! Details).getClubData(input: clubData.code)
         (viewArray[2] as! Members).getClubData(input: clubData.code)
     }
     

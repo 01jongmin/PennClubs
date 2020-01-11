@@ -12,36 +12,66 @@ class Details : UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var sectionTitles = ["Description", "Basic Info", "Social"]
     
-    var memberTableView = UITableView()
+    var detailsTableView = UITableView()
     let cellId = "cellId"
+    var clubDetailsData : ClubDetailsData? = nil
+    
+    let sectionContent = [[String]]()
     
     override func viewDidLoad() {
         view.backgroundColor = .white
-        view.addSubview(memberTableView)
+        view.addSubview(detailsTableView)
         
-        memberTableView.dataSource = self
-        memberTableView.delegate = self
+        detailsTableView.dataSource = self
+        detailsTableView.delegate = self
         
-        memberTableView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
+        detailsTableView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
         
-        memberTableView.translatesAutoresizingMaskIntoConstraints = false
-        memberTableView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 1.0).isActive = true
-        memberTableView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 1.0).isActive = true
-        memberTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        memberTableView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor).isActive = true
+        detailsTableView.translatesAutoresizingMaskIntoConstraints = false
+        detailsTableView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 1.0).isActive = true
+        detailsTableView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 1.0).isActive = true
+        detailsTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        detailsTableView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor).isActive = true
     }
     
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//        return 3
-//    }
-//
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let label = UILabel()
-//        label.text = sectionTitles[section]
-//        label.backgroundColor = .white
-//
-//        return label
-//    }
+    func getClubData(input clubCode: String) {
+        let jsonUrlString = "https://api.pennclubs.com/clubs/" + clubCode + "/"
+
+        let url = URL(string: jsonUrlString)
+        
+        URLSession.shared.dataTask(with: url!) { (data, response, err) in
+            do {
+                defer {
+                    DispatchQueue.main.async {
+                        self.sortClubDetailsData()
+                        self.detailsTableView.reloadData()
+                    }
+                }
+                
+                guard let data = data else { print("error at data = data"); return }
+                let clubsDecoded = try JSONDecoder().decode(ClubDetailsData.self, from: data)
+                self.clubDetailsData = clubsDecoded
+            } catch let jsonErr {
+                print("JSON Serialization Error", jsonErr)
+            }
+        }.resume()
+    }
+    
+    func sortClubDetailsData() {
+        
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 3
+    }
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let label = UILabel()
+        label.text = sectionTitles[section]
+        label.backgroundColor = .white
+
+        return label
+    }
 //
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
@@ -53,13 +83,20 @@ class Details : UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    let tester = [["We are a team of student software engineers, product designers, and business developers. Our ultimate goal is improving the Penn community with technology. In addition to creating 100% free high-quality products, we give back with educational resources and technical support."], ["20 - 50 Members", "Not Currently Accepting Members", "Application Required for All Roles"], ["facebook.com/labsatpenn", "pennappslabs@gmail.com", "pennlabs.org", "github.com/pennlabs"]]
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = memberTableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
+        let cell = detailsTableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
         
         let x = UITextView()
-        x.text = "asdkjasdlkgjasdlkgjasldkgjalsdjgklasdjgl asdj gklasd glkasd jglk asdklgj aslkd jglas dglka sdjglk asdjlgk asdl gasdlk gjalsdk gjlkasd gjlsad jg lalsd gasld kga sdlg asdl gasj dgla sdgjk asdlgj x"
+        x.text = tester[indexPath.section][indexPath.row]
         
-        x.font = UIFont(name: "AlNile", size: 20)
+        if (indexPath.section == 0) {
+            x.font = UIFont(name: "HelveticaNeue", size: 20)
+        } else{
+            x.font = UIFont(name: "HelveticaNeue", size: 10)
+        }
+        
         x.isEditable = false
         x.isScrollEnabled = false
         
@@ -74,8 +111,8 @@ class Details : UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        memberTableView.estimatedRowHeight = 100
-        memberTableView.rowHeight = UITableView.automaticDimension
+        detailsTableView.estimatedRowHeight = 100
+        detailsTableView.rowHeight = UITableView.automaticDimension
     }
     
     override func didReceiveMemoryWarning() {
