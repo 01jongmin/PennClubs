@@ -62,7 +62,6 @@ class DiscoverController: UICollectionViewController, UICollectionViewDelegateFl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         configureRefreshController()
         
         collectionView.backgroundColor = UIColor.white
@@ -275,6 +274,11 @@ class DiscoverController: UICollectionViewController, UICollectionViewDelegateFl
         let clubDetailsView = ClubDetails(collectionViewLayout: layout)
         clubDetailsView.set(clubData: inputClubData)
         clubDetailsView.title = inputClubData.name
+        
+//        testing
+//        navigationController?.navigationBar.prefersLargeTitles = true
+//        navigationController?.navigationBar.
+        
         print("something")
         self.navigationController?.pushViewController(clubDetailsView, animated: true)
     }
