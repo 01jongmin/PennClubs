@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class Members : UIViewController, UITableViewDelegate, UITableViewDataSource {
         
@@ -37,11 +38,13 @@ class Members : UIViewController, UITableViewDelegate, UITableViewDataSource {
         memberTableView.delegate = self
         memberTableView.dataSource = self
         
-        memberTableView.register(MemberCell.self, forCellReuseIdentifier: memberCellId)
+        
+//        memberTableView.register(MemberCell.self, forCellReuseIdentifier: memberCellId)
+        memberTableView.register(UITableViewCell.self, forCellReuseIdentifier: memberCellId)
     }
     
     func getClubData(input clubCode:String) {
-        let jsonUrlString = "https://api.pennclubs.com/clubs/" + clubCode + "/members/"
+        let jsonUrlString = "https://pennclubs.com/api/clubs/" + clubCode + "/members/"
 
             let url = URL(string: jsonUrlString)
             
@@ -51,8 +54,6 @@ class Members : UIViewController, UITableViewDelegate, UITableViewDataSource {
                         DispatchQueue.main.async {
                             self.sortUsers()
                             self.memberTableView.reloadData()
-//                            print(self.memberDictionary.count)
-//                            self.refreshControl.endRefreshing()
                         }
                     }
                     
@@ -154,8 +155,21 @@ class Members : UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = memberTableView.dequeueReusableCell(withIdentifier: memberCellId) as! MemberCell
-        cell.set(member: twoDimensional[indexPath.section][indexPath.row])
+//        let cell = memberTableView.dequeueReusableCell(withIdentifier: memberCellId)
+        let member = twoDimensional[indexPath.section][indexPath.row]
+        
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: memberCellId)
+//            as! MemberCell
+//        cell.set(member: twoDimensional[indexPath.section][indexPath.row])
+        if let imageUrl = member.image {
+            let url = URL(string: imageUrl)
+            cell.imageView?.kf.setImage(with: url)
+        } else {
+            cell.imageView?.image = nil
+        }
+        
+        cell.textLabel?.text = member.name
+
         return cell
     }
 }

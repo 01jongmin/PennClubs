@@ -25,7 +25,12 @@ class ClubDetails: UICollectionViewController, UICollectionViewDelegateFlowLayou
         super.viewDidLoad()
         view.backgroundColor = .white
         collectionView.backgroundColor = .white
-//        self.navigationController?.navigationBar.prefersLargeTitles = true
+//        navigationController?.navigationBar.backgroundColor = .blue
+        navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.blue]
+//        self.navigationController?.navigationBar.backgroundColor = .red
+
+//        self.navigationController?.
+//        navigationController?.navigationBar.barStyle = .black
     }
     
     func set(clubData: ClubData) {
@@ -37,6 +42,34 @@ class ClubDetails: UICollectionViewController, UICollectionViewDelegateFlowLayou
         configureCollectionView()
         (viewArray[0] as! Details).getClubData(input: clubData.code)
         (viewArray[2] as! Members).getClubData(input: clubData.code)
+//        
+//        let titleViewLabel = UILabel()
+////        titleViewLabel.frame = CGRect(x: 0, y: 0, width: 300, height: 44)
+//        titleViewLabel.widthAnchor.constraint(equalToConstant: 200).isActive = true
+//        titleViewLabel.heightAnchor.constraint(equalToConstant: 44).isActive = true
+//        titleViewLabel.text = clubData.name
+//        titleViewLabel.numberOfLines = 2
+//        titleViewLabel.backgroundColor = .red
+        
+        self.title = clubData.name
+        if let x = navigationController?.navigationBar {
+            print("something")
+            x.backgroundColor = .red
+        }
+//        navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.blue]
+//        navigationController?.navigationBar.largeTitleTextAttributes = [
+//            NSAttributedString.Key.foregroundColor: UIColor.red
+//        ]
+//        navigationController?.navigationBar.largeTitleTextAttributes = [
+//            .foregroundColor: UIColor.red,
+//                .backgroundColor: UIColor.blue]
+//        navigationItem.largeTitleDisplayMode = .
+//        titleView = titleViewLabel
+        
+        
+//        navigationItem.titleView =
+        
+//        if let x = self.navigationController?.navigationItem
     }
     
     func configureCollectionView() {

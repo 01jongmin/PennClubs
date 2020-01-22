@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import WebKit
 //import FontAwesome_swift
 
-class Details : UIViewController, UITableViewDelegate, UITableViewDataSource {
+class Details : UIViewController, UITableViewDelegate, UITableViewDataSource, WKUIDelegate {
     
     var sectionTitles = ["Description", "Basic Info", "Social"]
     
@@ -38,7 +39,7 @@ class Details : UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func getClubData(input clubCode: String) {
-        let jsonUrlString = "https://api.pennclubs.com/clubs/" + clubCode + "/"
+        let jsonUrlString = "https://pennclubs.com/api/clubs/" + clubCode + "/"
 
         let url = URL(string: jsonUrlString)
         
@@ -160,20 +161,27 @@ class Details : UIViewController, UITableViewDelegate, UITableViewDataSource {
 //        let cell = UITableViewCell.init(style: .default, reuseIdentifier: cellId)
         let cell = detailsTableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
         
-//        cell.textLabel?.showsLargeContentViewer = true
-//        cell.textLabel?.largeContentImage = UIImage(named: "plus.circle.fill")
-        
         cell.textLabel?.textColor = .darkGray
         cell.contentView.tintColor = .darkGray
         cell.textLabel?.text = sectionContent[indexPath.section][indexPath.row]
-        
+
         if (indexPath.section == 0) {
             if (sectionContent[0][0] == "") {
                 cell.textLabel?.text = "This club has not added a description yet."
+            } else {
+                cell.textLabel?.text = nil
+                let webView1 = WKWebView()
+//                cell.webView.delegate = self
+                webView1.uiDelegate = self
+                webView1.loadHTMLString(sectionContent[0][0], baseURL: nil)
+                webView1.frame = CGRect(x: 0, y: 0, width: cell.frame.size.width, height: cell.frame.size.height)
+//                webView1.translatesAutoresizingMaskIntoConstraints = false
+//                webView1.widthAnchor.constraint(equalTo: cell.widthAnchor, multiplier: 1.0).isActive = true
+//                webView1.heightAnchor.constraint(equalTo: cell.heightAnchor, multiplier: 1.0).isActive = true
             }
-            
+
         }
-        
+
         if (indexPath.section == 1) {
             if (indexPath.item == 0) {
                 cell.imageView?.image = UIImage(systemName: "person")?.withTintColor(.red)
@@ -189,14 +197,12 @@ class Details : UIViewController, UITableViewDelegate, UITableViewDataSource {
         } else {
             cell.imageView?.image = nil
         }
-        
+
         cell.textLabel?.numberOfLines = 0;
+        
         return cell
     }
     
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 100
-    }
     
     override func viewWillAppear(_ animated: Bool) {
         detailsTableView.estimatedRowHeight = 100
@@ -240,9 +246,9 @@ class Details : UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     func boolToAcceptingApplicationDescription(accepting: Bool) -> String {
         if accepting {
-            return "Currently Accepting Members"
+            return " Currently Accepting Members"
         } else {
-            return "Not Currently Accepting Members"
+            return " Not Currently Accepting Members"
         }
     }
 

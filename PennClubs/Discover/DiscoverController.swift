@@ -23,7 +23,7 @@ class DiscoverController: UICollectionViewController, UICollectionViewDelegateFl
     let wifiErrorNotifyLabel = UIButton()
     
     func getClubData() {
-        let jsonUrlString = "https://api.pennclubs.com/clubs/"
+        let jsonUrlString = "https://pennclubs.com/api/clubs/"
 
         let url = URL(string: jsonUrlString)
         
@@ -37,13 +37,16 @@ class DiscoverController: UICollectionViewController, UICollectionViewDelegateFl
             do {
                 defer {
                     DispatchQueue.main.async {
+                        self.testFunc()
                         self.clubs.shuffle()
                         self.collectionView.reloadData()
                         self.refreshControl.endRefreshing()
                     }
                 }
                 
-                guard let data = data else { print("error at data = data"); return }
+                guard let data = data else {
+                    DispatchQueue.main.async{ self.testFunc() }
+                    ; return }
                 let clubsDecoded = try JSONDecoder().decode([ClubData].self, from: data)
                 self.clubs = clubsDecoded
             } catch let jsonErr {
@@ -56,6 +59,18 @@ class DiscoverController: UICollectionViewController, UICollectionViewDelegateFl
     var filterImage = UIImage(systemName: "line.horizontal.3.decrease.circle")!
     var filterImageClicked = UIImage(systemName: "line.horizontal.3.decrease.circle.fill")!
     let discoverModeSwitch = UIButton()
+    
+    
+    func createTranslateYAnimation(start: Int, end: Int, time: Double) -> CABasicAnimation {
+        let translateYAnimation = CABasicAnimation()
+        translateYAnimation.valueFunction = CAValueFunction(name: CAValueFunctionName.translate)
+        translateYAnimation.fromValue = [0, start, 0]
+        translateYAnimation.toValue = [0, end, 0]
+        translateYAnimation.duration = time
+        translateYAnimation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+        
+        return translateYAnimation
+    }
     
     
     let x = UIButton()
@@ -111,31 +126,61 @@ class DiscoverController: UICollectionViewController, UICollectionViewDelegateFl
         discoverModeSwitch.layer.shadowRadius = 4
         discoverModeSwitch.layer.shadowOpacity = 0.5
         discoverModeSwitch.layer.shadowPath = UIBezierPath(rect: discoverModeSwitch.bounds).cgPath
-//
+
 //        let maskView = UIView()
 //        view.addSubview(maskView)
 //        maskView.translatesAutoresizingMaskIntoConstraints = false
 //        maskView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-//        maskView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.10).isActive = true
+//        maskView.heightAnchor.constraint(equalToConstant: 100).isActive = true
 //        maskView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
 //        maskView.clipsToBounds = true
 //
 //        wifiErrorNotifyLabel.backgroundColor = .red
 //        wifiErrorNotifyLabel.setTitle("Test", for: .normal)
-//        wifiErrorNotifyLabel.addTarget(self, action: #selector(testFunc), for: .touchUpInside)
 //        maskView.addSubview(wifiErrorNotifyLabel)
 //
 //        wifiErrorNotifyLabel.translatesAutoresizingMaskIntoConstraints = false
 //        wifiErrorNotifyLabel.widthAnchor.constraint(equalTo: maskView.widthAnchor).isActive = true
-//        wifiErrorNotifyLabel.heightAnchor.constraint(equalTo: maskView.heightAnchor, multiplier: 0.10).isActive = true
-//        wifiErrorNotifyLabel.topAnchor.constraint(equalTo: maskView.topAnchor, constant: 0).isActive = true
-//
-//        wifiErrorNotifyLabel.mask = maskView
-        
+//        wifiErrorNotifyLabel.heightAnchor.constraint(equalToConstant: 100).isActive = true
+//        wifiErrorNotifyLabel.topAnchor.constraint(equalTo: maskView.topAnchor, constant:  0).isActive = true
+//        
     }
     
-    @objc func testFunc() {
-        print("touched Something")
+//    func configureTranslateInAndOut() {
+//        translateAnimation.valueFunction = CAValueFunction(name: CAValueFunctionName.translate)
+//        translateAnimation.fromValue = [0, -100, 0]
+//        translateAnimation.toValue = [0, 0, 0]
+//        translateAnimation.duration = 1
+//    }
+    
+    func testFunc() {
+        print("test")
+        
+//        wifiErrorNotifyLabel.cgaffain
+//        let colorKeyframeAnimation = CAKeyframeAnimation(keyPath: "bounds.minY")
+
+//        colorKeyframeAnimation.values = [0, 100, 200]
+//        colorKeyframeAnimation.keyTimes = [0, 0.5, 1]
+//        colorKeyframeAnimation.duration = 2
+        
+//        let translateAnimation = CAKeyframeAnimation(keyPath: "backgroundColor")
+//        translateAnimation.values = [0, 100, 100, 0]
+//        translateAnimation.keyTimes = [0, 0.5, 0.75, 1]
+//        translateAnimation.duration = 2
+//        let translateYAnimation = CABasicAnimation()
+//        translateYAnimation.valueFunction = CAValueFunction(name: CAValueFunctionName.translate)
+//        translateYAnimation.fromValue = [0, -100, 0]
+//        translateYAnimation.toValue = [0, 0, 0]
+//        translateYAnimation.duration = 1.0
+//        translateYAnimation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+//
+        let translateOut = createTranslateYAnimation(start: 0, end: -100, time: 1.0)
+//        wifiErrorNotifyLabel.layer.add(<#T##anim: CAAnimation##CAAnimation#>, forKey: <#T##String?#>)
+//        wifiErrorNotifyLabel.
+        
+//        bounds.applying(<#T##t: CGAffineTransform##CGAffineTransform#>)
+//        layer.add(colorKeyframeAnimation, forKey: "bounds.minY")
+//        wifiErrorNotifyLabel.layer.add(translateOut, forKey: "transform")
     }
     
     func configureRefreshController() {
@@ -277,18 +322,19 @@ class DiscoverController: UICollectionViewController, UICollectionViewDelegateFl
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let clubDetailsView = ClubDetails(collectionViewLayout: layout)
+        navigationController?.navigationBar.prefersLargeTitles = true
         clubDetailsView.set(clubData: inputClubData)
-        clubDetailsView.title = inputClubData.name
         
-//        testing
-//        navigationController?.
-//        navigationController?.navigationBar.prefersLargeTitles = true
-//        navigationController?.navigationBar.
         
-//        print("something")
-        self.navigationController?.pushViewController(clubDetailsView, animated: true)
+//        navigationController?.navigationBar.backgroundColor = .red
+//        clubDetailsView.title = inputClubData.name        
+        navigationController?.pushViewController(clubDetailsView, animated: true)
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.title = ""
+    }
     
     
 }
