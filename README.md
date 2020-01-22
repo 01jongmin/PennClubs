@@ -23,7 +23,7 @@ Please open the .xcworkspace file rather than the .xcodeproj file to avoid issue
 - [ ] Manage club events
 
 ## Video Walkthrough
-![penn clubs](https://user-images.githubusercontent.com/49562117/72935606-ac34f680-3d33-11ea-97da-9a77ee1133d6.gif)
+![penn clubs](https://user-images.githubusercontent.com/49562117/72935738-e9998400-3d33-11ea-97cf-e05b41f6994a.gif)
 
 
 ## Credits
