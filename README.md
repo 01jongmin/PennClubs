@@ -10,9 +10,9 @@ $ pod install
 
 Please open the .xcworkspace file rather than the .xcodeproj file to avoid issues.
 
-## Features
-- [x] View and search through all organizations registered Penn
-- [ ] View and search through upcoming events
+## Basic Features
+- [x] Built the UI of dinning tab of the actual app entirely programmatically
+- [x] Fetch dining hours and image URLs from the API a
 - [x] View each club's information in detail
 - [ ] Directly access clubs's social media sites
 - [ ] Find upcoming events for each club
@@ -22,9 +22,15 @@ Please open the .xcworkspace file rather than the .xcodeproj file to avoid issue
 - [ ] Log in using Penn ID to retrieve bookmarked clubs
 - [ ] Manage club events
 
+## Stretch Goals
+- [x] Cache the dining hall images using KingFisher
+- [x] Indicate the loading status of the page
+- [x] Throws an alert to user when a user clicks on a venue without internet connection
+- [x] Used UserDefaults to allow users to "favorite" dining halls, and have those appear at the top
+
+## Additional Features
+- [x] Created a UISegmentedView that provides
+- [x] Compatible for all layouts (Horizontal/Vertical/Smaller/Larger screens)
+- [x] Implemented dark mode
+
 ## Video Walkthrough
-![penn clubs](https://user-images.githubusercontent.com/49562117/72935738-e9998400-3d33-11ea-97cf-e05b41f6994a.gif)
-
-
-## Credits
-This application uses a REST API developed by Penn Labs to retrieve data for clubs at Penn: https://github.com/pennlabs/penn-clubs
